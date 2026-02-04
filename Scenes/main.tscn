@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://qf672pdes531"]
+
+[ext_resource type="PackedScene" uid="uid://brkp7oq6j8t1y" path="res://Scenes/Playfield.tscn" id="1_hx5sn"]
+[ext_resource type="PackedScene" uid="uid://d2h3377l4gviy" path="res://Scenes/player.tscn" id="2_spliy"]
+[ext_resource type="PackedScene" uid="uid://bsgfbhqt6cn4k" path="res://Scenes/robot.tscn" id="3_cuv0i"]
+
+[node name="Main" type="Node2D" unique_id=1843548130]
+
+[node name="Playfield" parent="." unique_id=1826274616 instance=ExtResource("1_hx5sn")]
+
+[node name="Player" parent="." unique_id=146244608 instance=ExtResource("2_spliy")]
+position = Vector2(103, 407)
+
+[node name="Robot" parent="." unique_id=1730101901 instance=ExtResource("3_cuv0i")]
+position = Vector2(356, 67)

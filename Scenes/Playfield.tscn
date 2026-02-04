@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cq65w45pv1afg" path="res://Scripts/Playfield.gd" id="1_llwvk"]
 [ext_resource type="Texture2D" uid="uid://b32mralmfrkfq" path="res://Assets/Art/Background.png" id="3_fkjvs"]
-[ext_resource type="PackedScene" uid="uid://betb3qguxdwkr" path="res://pillar.tscn" id="4_4wil0"]
+[ext_resource type="PackedScene" uid="uid://betb3qguxdwkr" path="res://Scenes/pillar.tscn" id="4_4wil0"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_4wil0"]
 tile_data = PackedInt32Array(0, 131072, 0, 1, 196608, 0, 2, 262144, 0, 3, 327680, 0, 4, 393216, 0, 5, 458752, 0, 6, 524288, 0, 7, 589824, 0, 8, 655360, 0, 9, 720896, 0, 10, 786432, 0, 11, 851968, 0)
@@ -17,33 +17,61 @@ tile_data = PackedInt32Array(0, 131072, 2)
 texture = ExtResource("3_fkjvs")
 texture_region_size = Vector2i(4, 4)
 0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 6:0/0 = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 7:0/0 = 0
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 8:0/0 = 0
+8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 9:0/0 = 0
+9:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 10:0/0 = 0
+10:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 11:0/0 = 0
+11:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 12:0/0 = 0
+12:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 13:0/0 = 0
+13:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 0:4/0 = 0
+0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 0:5/0 = 0
+0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 0:6/0 = 0
+0:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 0:7/0 = 0
+0:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 0:8/0 = 0
+0:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 0:9/0 = 0
+0:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 0:10/0 = 0
+0:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 0:11/0 = 0
+0:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 0:12/0 = 0
+0:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 0:13/0 = 0
+0:13/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 0:14/0 = 0
+0:14/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
 
 [sub_resource type="TileSet" id="TileSet_fa7ft"]
 tile_size = Vector2i(4, 4)
@@ -62,16 +90,16 @@ tile_map_data = PackedByteArray("AAAAAAEAAAAAAAAAAAAAAAIAAAAAAAEAAAAAAAMAAAAAAAI
 tile_set = SubResource("TileSet_fa7ft")
 
 [node name="Pillar-1" parent="." unique_id=1200595654 instance=ExtResource("4_4wil0")]
-position = Vector2(215, 260)
+position = Vector2(215, 264)
 
 [node name="Pillar-2" parent="." unique_id=1590351481 instance=ExtResource("4_4wil0")]
-position = Vector2(424, 260)
+position = Vector2(424, 264)
 
 [node name="Pillar-3" parent="." unique_id=1047879685 instance=ExtResource("4_4wil0")]
-position = Vector2(632, 260)
+position = Vector2(632, 264)
 
 [node name="Pillar-4" parent="." unique_id=1548279635 instance=ExtResource("4_4wil0")]
-position = Vector2(848, 260)
+position = Vector2(848, 264)
 
 [node name="Pillar-5" parent="." unique_id=206366732 instance=ExtResource("4_4wil0")]
 position = Vector2(215, 520)
