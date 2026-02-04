@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://betb3qguxdwkr"]
+
+[ext_resource type="Script" uid="uid://dvyh6voyqvmfi" path="res://Scripts/pillar.gd" id="1_r8rte"]
+[ext_resource type="Texture2D" uid="uid://v3lpynm6jspu" path="res://Walls_atlas_texture.tres" id="1_tcmdu"]
+[ext_resource type="Texture2D" uid="uid://b32mralmfrkfq" path="res://Assets/Art/Background.png" id="2_r8rte"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8rte"]
+atlas = ExtResource("2_r8rte")
+region = Rect2(8, 8, 4, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tcmdu"]
+size = Vector2(16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2h7r3"]
+atlas = ExtResource("1_tcmdu")
+region = Rect2(0, 0, 4.381729, 60.43167)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v4dye"]
+size = Vector2(15, 242)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4wil0"]
+atlas = ExtResource("2_r8rte")
+region = Rect2(8, 0, 48, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2h7r3"]
+size = Vector2(193, 17)
+
+[node name="Pillar-1" type="Area2D" unique_id=1047879685]
+script = ExtResource("1_r8rte")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1448946666]
+scale = Vector2(4, 4)
+texture = SubResource("AtlasTexture_r8rte")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1703804551]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_tcmdu")
+
+[node name="Arms" type="Node2D" parent="." unique_id=670230244]
+
+[node name="Up" type="Area2D" parent="Arms" unique_id=1689638056]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Arms/Up" unique_id=914662498]
+position = Vector2(0, -124)
+scale = Vector2(4, 4)
+texture = SubResource("AtlasTexture_2h7r3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/Up" unique_id=1077033416]
+position = Vector2(0.5, -124)
+shape = SubResource("RectangleShape2D_v4dye")
+
+[node name="Down" type="Area2D" parent="Arms" unique_id=147732302]
+visible = false
+rotation = -3.1415925
+
+[node name="Sprite2D" type="Sprite2D" parent="Arms/Down" unique_id=1894762546]
+position = Vector2(0, -124)
+scale = Vector2(4, 4)
+texture = ExtResource("1_tcmdu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/Down" unique_id=413619835]
+position = Vector2(0.5, -124)
+shape = SubResource("RectangleShape2D_v4dye")
+
+[node name="Left" type="Area2D" parent="Arms" unique_id=1368598363]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Arms/Left" unique_id=974312515]
+position = Vector2(-103, 0)
+scale = Vector2(4, 4)
+texture = SubResource("AtlasTexture_4wil0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/Left" unique_id=2067863231]
+position = Vector2(-103.5, 0)
+shape = SubResource("RectangleShape2D_2h7r3")
+
+[node name="Right" type="Area2D" parent="Arms" unique_id=1292911981]
+visible = false
+rotation = -3.1415925
+
+[node name="Sprite2D" type="Sprite2D" parent="Arms/Right" unique_id=1253078836]
+position = Vector2(-103, 0)
+scale = Vector2(4, 4)
+texture = SubResource("AtlasTexture_4wil0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/Right" unique_id=475044344]
+position = Vector2(-103.5, 0)
+shape = SubResource("RectangleShape2D_2h7r3")
