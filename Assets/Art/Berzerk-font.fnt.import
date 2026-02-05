@@ -1,0 +1,16 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://cip3ta1xgu0uo"
+valid=false
+
+[deps]
+
+source_file="res://Assets/Art/Berzerk-font.fnt"
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2

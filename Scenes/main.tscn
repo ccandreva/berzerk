@@ -12,4 +12,28 @@
 position = Vector2(103, 407)
 
 [node name="Robot" parent="." unique_id=1730101901 instance=ExtResource("3_cuv0i")]
-position = Vector2(356, 67)
+position = Vector2(352, 96)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=752747058]
+visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=980266760]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=2133228430]
+layout_mode = 2
+text = "Hello, World"
+
+[node name="Label2" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=693277556]
+layout_mode = 2
+text = "How are you today "

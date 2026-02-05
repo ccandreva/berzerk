@@ -103,10 +103,6 @@ region = Rect2(18, 0, 8, 17)
 atlas = ExtResource("1_onrkg")
 region = Rect2(27, 0, 8, 17)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vgp0b"]
-atlas = ExtResource("1_onrkg")
-region = Rect2(18, 0, 8, 17)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_sweqy"]
 animations = [{
 "frames": [{
@@ -241,7 +237,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_2nld8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vgp0b")
+"texture": SubResource("AtlasTexture_emuj5")
 }],
 "loop": true,
 "name": &"WalkRight",
@@ -249,24 +245,26 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dw050"]
-size = Vector2(8, 8)
+size = Vector2(8, 7)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b26j0"]
 height = 53.0
 
 [node name="Player" type="CharacterBody2D" unique_id=146244608]
+collision_mask = 3
 script = ExtResource("1_147mo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=272524372]
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_sweqy")
-animation = &"WalkRight"
+animation = &"Idle"
 autoplay = "Idle"
+frame_progress = 1.0
 
 [node name="Collision-Head" type="CollisionShape2D" parent="." unique_id=1052995534]
-position = Vector2(0, -28)
+position = Vector2(0, -29.5)
 shape = SubResource("RectangleShape2D_dw050")
 
 [node name="Collision-Body" type="CollisionShape2D" parent="." unique_id=143355760]
-position = Vector2(0, 6.5)
+position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_b26j0")
