@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://ds7qtvdqeoa75"]
+
+[ext_resource type="Texture2D" uid="uid://j26li16id5d2" path="res://Assets/Art/Laser-white.png" id="1_r1bh0"]
+[ext_resource type="Shader" uid="uid://u5yl460wa2dm" path="res://Scenes/laser.tres" id="2_mou6w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mou6w"]
+shader = ExtResource("2_mou6w")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mou6w"]
+atlas = ExtResource("1_r1bh0")
+region = Rect2(0.016301155, 0, 6.9542513, 7.0962315)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3pc01"]
+shader = ExtResource("2_mou6w")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3pc01"]
+size = Vector2(24, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pc01"]
+atlas = ExtResource("1_r1bh0")
+region = Rect2(24.004, 0, 7, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8ure"]
+atlas = SubResource("AtlasTexture_3pc01")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mou6w"]
+radius = 0.9428091
+height = 17.913372
+
+[node name="Laser" type="Area2D" unique_id=821578972]
+
+[node name="Sprite-Straight" type="Sprite2D" parent="." unique_id=1343549693]
+material = SubResource("ShaderMaterial_mou6w")
+position = Vector2(12, 0)
+scale = Vector2(4, 4)
+texture = SubResource("AtlasTexture_mou6w")
+
+[node name="CollisionShape-Straight" type="CollisionShape2D" parent="." unique_id=1737509788]
+material = SubResource("ShaderMaterial_3pc01")
+position = Vector2(12, 0)
+shape = SubResource("RectangleShape2D_3pc01")
+
+[node name="Sprite-Diag" type="Sprite2D" parent="." unique_id=1226923058]
+position = Vector2(10.5, -10.5)
+scale = Vector2(3, 3)
+texture = SubResource("AtlasTexture_c8ure")
+
+[node name="CollisionShape-Diag" type="CollisionShape2D" parent="." unique_id=1631950506]
+position = Vector2(11, -11)
+rotation = 0.7853982
+scale = Vector2(1.5, 1.5)
+shape = SubResource("CapsuleShape2D_mou6w")

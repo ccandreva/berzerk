@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://brkp7oq6j8t1y" path="res://Scenes/Playfield.tscn" id="1_hx5sn"]
 [ext_resource type="PackedScene" uid="uid://d2h3377l4gviy" path="res://Scenes/player.tscn" id="2_spliy"]
 [ext_resource type="PackedScene" uid="uid://bsgfbhqt6cn4k" path="res://Scenes/robot.tscn" id="3_cuv0i"]
+[ext_resource type="PackedScene" uid="uid://ds7qtvdqeoa75" path="res://Scenes/laser.tscn" id="4_jjvhh"]
 
 [node name="Main" type="Node2D" unique_id=1843548130]
 
@@ -37,3 +38,6 @@ text = "Hello, World"
 [node name="Label2" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=693277556]
 layout_mode = 2
 text = "How are you today "
+
+[node name="Laser" parent="." unique_id=821578972 instance=ExtResource("4_jjvhh")]
+position = Vector2(296, 640)
