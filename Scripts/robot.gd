@@ -1,9 +1,23 @@
 extends CharacterBody2D
 
+# Player speed
+@export var speed:int = 50
 
-func _on_collision_target_body_entered(body: Node2D) -> void:
-	print ("Robot Body Hit!")
+@onready var sprite:AnimatedSprite2D = get_node("AnimatedSprite2D")
+var direction:String=""
+# States: Idle, Walking, Shooting, Death
+var state:String="Idle"
+
+func _physics_process(_delta: float) -> void:
+	# Play an animation based on the directions we built, 
+	# or if we are dead.
+	sprite.play(str(state,direction))
 
 
-func _on_collision_target_area_entered(area: Area2D) -> void:
-	print ("Robot Area Hit!")
+func kill_robot() -> void:
+	state = "Death"
+	direction = ""
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	queue_free()

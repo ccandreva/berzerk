@@ -201,27 +201,18 @@ animations = [{
 radius = 16.0
 height = 46.0
 
-[node name="Robot" type="CharacterBody2D" unique_id=1730101901]
+[node name="Robot" type="CharacterBody2D" unique_id=1730101901 groups=["Robots"]]
 collision_mask = 2
 script = ExtResource("1_2vrla")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2119877315]
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_pva2i")
-animation = &"Stand"
+animation = &"Death"
 autoplay = "Stand"
-frame_progress = 0.5381689
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=557679861]
 position = Vector2(2, 8)
 shape = SubResource("CapsuleShape2D_dfm56")
 
-[node name="CollisionTarget" type="Area2D" parent="." unique_id=1581979472]
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionTarget" unique_id=1543086771]
-position = Vector2(2, 8)
-shape = SubResource("CapsuleShape2D_dfm56")
-
-[connection signal="area_entered" from="CollisionTarget" to="." method="_on_collision_target_area_entered"]
-[connection signal="body_entered" from="CollisionTarget" to="." method="_on_collision_target_body_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b3pw8mwlda6rs" path="res://Scripts/Player.gd" id="1_147mo"]
 [ext_resource type="Texture2D" uid="uid://bi2nmoy6mmq84" path="res://Assets/Art/Players.png" id="1_onrkg"]
+[ext_resource type="PackedScene" uid="uid://ds7qtvdqeoa75" path="res://Scenes/laser.tscn" id="2_6t5aa"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hg5i4"]
 atlas = ExtResource("1_onrkg")
@@ -250,16 +251,16 @@ size = Vector2(8, 7)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b26j0"]
 height = 53.0
 
-[node name="Player" type="CharacterBody2D" unique_id=146244608]
+[node name="Player" type="CharacterBody2D" unique_id=146244608 groups=["Players"]]
 collision_mask = 3
 script = ExtResource("1_147mo")
+Laser = ExtResource("2_6t5aa")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=272524372]
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_sweqy")
-animation = &"Idle"
+animation = &"ShootRight"
 autoplay = "Idle"
-frame_progress = 1.0
 
 [node name="Collision-Head" type="CollisionShape2D" parent="." unique_id=1052995534]
 position = Vector2(0, -29.5)
@@ -268,3 +269,7 @@ shape = SubResource("RectangleShape2D_dw050")
 [node name="Collision-Body" type="CollisionShape2D" parent="." unique_id=143355760]
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_b26j0")
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=57410674]
+position = Vector2(17, -16)
+scale = Vector2(4, 4)

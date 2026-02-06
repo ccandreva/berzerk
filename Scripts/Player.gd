@@ -1,11 +1,14 @@
 extends CharacterBody2D
 
+@export var Laser : PackedScene
 # Player speed
 @export var speed:int = 150
 
+var is_firing : bool = false
+
 @onready var sprite:AnimatedSprite2D = get_node("AnimatedSprite2D")
 var direction:String=""
-# States: Idle, Walking, Shooting, Death
+# States: Idle, Walk, Shoot, Death
 var state:String="Idle"
 
 #func _ready() -> void:
@@ -18,6 +21,8 @@ func _physics_process(_delta: float) -> void:
 	# If we are dying, we can't do anything else.
 	if (state != "Death"):
 		input_vector = process_input()
+	if (state == "Shoot" and input_vector != Vector2.ZERO):
+		shoot()
 	if (state == "Walk"):
 		var collision = move_and_collide(input_vector * speed * _delta)
 		if (collision):
@@ -67,6 +72,19 @@ func process_input() -> Vector2:
 			# We only have animations for left and right, do what the arcade does.
 			direction = direction_h
 	return(input_vector)
+
+func shoot():
+	# We can only shoot once, so skip if we are already shooting
+	if (is_firing):
+		return
+	var laser = Laser.instantiate()
+	laser.remove_laser = Callable(self,"remove_bullet")
+	owner.add_child(laser)
+	laser.transform = $Muzzle.global_transform
+	is_firing = true;
+	
+func remove_bullet():
+	is_firing = false
 
 func kill_player() -> void:
 	state = "Death"
