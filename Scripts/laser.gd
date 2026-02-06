@@ -3,6 +3,9 @@ extends Area2D
 var speed = 100
 var remove_laser : Callable
 
+func _ready() -> void:
+	$SFX.play()
+
 func _physics_process(_delta: float) -> void:
 	position += transform.x * speed * _delta
 

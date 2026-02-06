@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://bqt1ylnoyjh53" path="res://Scripts/laser.gd" id="1_3pc01"]
 [ext_resource type="Texture2D" uid="uid://j26li16id5d2" path="res://Assets/Art/Laser-white.png" id="1_r1bh0"]
 [ext_resource type="Shader" uid="uid://u5yl460wa2dm" path="res://Scenes/laser.tres" id="2_mou6w"]
+[ext_resource type="AudioStream" uid="uid://vgck4fhk6qc0" path="res://Assets/Audio/Ovani/Lazgun Single A.wav" id="4_c6hsp"]
+[ext_resource type="AudioStream" uid="uid://g0ik0drumqq1" path="res://Assets/Audio/Ovani/Lazgun Single B.wav" id="5_cnw57"]
+[ext_resource type="AudioStream" uid="uid://d8ugeq203248" path="res://Assets/Audio/Ovani/Lazgun Single C.wav" id="6_y5j7k"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mou6w"]
 shader = ExtResource("2_mou6w")
@@ -27,6 +30,13 @@ atlas = SubResource("AtlasTexture_3pc01")
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mou6w"]
 radius = 0.7071068
 height = 8.485283
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_r1vd4"]
+random_pitch = 1.0098096
+streams_count = 3
+stream_0/stream = ExtResource("4_c6hsp")
+stream_1/stream = ExtResource("5_cnw57")
+stream_2/stream = ExtResource("6_y5j7k")
 
 [node name="Laser" type="Area2D" unique_id=821578972]
 collision_layer = 3
@@ -53,5 +63,8 @@ visible = false
 position = Vector2(4, -4)
 rotation = 0.7853982
 shape = SubResource("CapsuleShape2D_mou6w")
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="." unique_id=1719318805]
+stream = SubResource("AudioStreamRandomizer_r1vd4")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
