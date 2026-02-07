@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b3pw8mwlda6rs" path="res://Scripts/Player.gd" id="1_147mo"]
 [ext_resource type="Texture2D" uid="uid://bi2nmoy6mmq84" path="res://Assets/Art/Players.png" id="1_onrkg"]
 [ext_resource type="PackedScene" uid="uid://ds7qtvdqeoa75" path="res://Scenes/laser.tscn" id="2_6t5aa"]
+[ext_resource type="AudioStream" uid="uid://b0svy0k6le60n" path="res://Assets/Audio/Ovani/Robot Combat Move F.wav" id="4_vgqql"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hg5i4"]
 atlas = ExtResource("1_onrkg")
@@ -259,7 +260,7 @@ Laser = ExtResource("2_6t5aa")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=272524372]
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_sweqy")
-animation = &"ShootRight"
+animation = &"ShootDownRight"
 autoplay = "Idle"
 
 [node name="Collision-Head" type="CollisionShape2D" parent="." unique_id=1052995534]
@@ -270,6 +271,47 @@ shape = SubResource("RectangleShape2D_dw050")
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_b26j0")
 
-[node name="Muzzle" type="Marker2D" parent="." unique_id=57410674]
-position = Vector2(17, -16)
+[node name="MuzzleRight" type="Marker2D" parent="." unique_id=57410674]
+position = Vector2(24, -16)
 scale = Vector2(4, 4)
+
+[node name="MuzzleDown" type="Marker2D" parent="." unique_id=145889451]
+position = Vector2(13, 14)
+scale = Vector2(4, 4)
+
+[node name="MuzzleUp" type="Marker2D" parent="." unique_id=1736641763]
+position = Vector2(14, -19)
+scale = Vector2(4, 4)
+
+[node name="MuzzleUpRight" type="Marker2D" parent="." unique_id=1282435025]
+position = Vector2(26, -35)
+scale = Vector2(4, 4)
+
+[node name="MuzzleUpLeft" type="Marker2D" parent="." unique_id=11565491]
+position = Vector2(-26, -35)
+scale = Vector2(4, 4)
+
+[node name="MuzzleLeft" type="Marker2D" parent="." unique_id=924134669]
+position = Vector2(-26, -16)
+scale = Vector2(4, 4)
+
+[node name="MuzzleDownLeft" type="Marker2D" parent="." unique_id=1218952699]
+position = Vector2(-26, 11)
+scale = Vector2(4, 4)
+
+[node name="MuzzleDownRight" type="Marker2D" parent="." unique_id=1524306901]
+position = Vector2(26, 11)
+scale = Vector2(4, 4)
+
+[node name="DeathTimer" type="Timer" parent="." unique_id=1002802817]
+wait_time = 2.0
+one_shot = true
+
+[node name="ShotTimer" type="Timer" parent="." unique_id=1119831581]
+wait_time = 0.75
+one_shot = true
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="." unique_id=1860851890]
+stream = ExtResource("4_vgqql")
+
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

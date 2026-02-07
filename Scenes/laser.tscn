@@ -20,6 +20,9 @@ shader = ExtResource("2_mou6w")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3pc01"]
 size = Vector2(7, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c6hsp"]
+shader = ExtResource("2_mou6w")
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_3pc01"]
 atlas = ExtResource("1_r1bh0")
 region = Rect2(24.004, 0, 7, 7)
@@ -29,7 +32,7 @@ atlas = SubResource("AtlasTexture_3pc01")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mou6w"]
 radius = 0.7071068
-height = 8.485283
+height = 9.899496
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_r1vd4"]
 random_pitch = 1.0098096
@@ -40,31 +43,33 @@ stream_2/stream = ExtResource("6_y5j7k")
 
 [node name="Laser" type="Area2D" unique_id=821578972]
 collision_layer = 3
-collision_mask = 3
+collision_mask = 19
 script = ExtResource("1_3pc01")
 
-[node name="Sprite-Straight" type="Sprite2D" parent="." unique_id=1343549693]
+[node name="SpriteStraight" type="Sprite2D" parent="." unique_id=1343549693]
+visible = false
 material = SubResource("ShaderMaterial_mou6w")
-position = Vector2(3.5, 0)
 texture = SubResource("AtlasTexture_mou6w")
 
-[node name="CollisionShape-Straight" type="CollisionShape2D" parent="." unique_id=1737509788]
-material = SubResource("ShaderMaterial_3pc01")
-position = Vector2(3.5, 0)
-shape = SubResource("RectangleShape2D_3pc01")
-
-[node name="Sprite-Diag" type="Sprite2D" parent="." unique_id=1226923058]
+[node name="CollisionShapeStraight" type="CollisionShape2D" parent="." unique_id=1737509788]
 visible = false
-position = Vector2(3.5, -3.5)
+material = SubResource("ShaderMaterial_3pc01")
+shape = SubResource("RectangleShape2D_3pc01")
+disabled = true
+
+[node name="SpriteDiag" type="Sprite2D" parent="." unique_id=1226923058]
+visible = false
+material = SubResource("ShaderMaterial_c6hsp")
 texture = SubResource("AtlasTexture_c8ure")
 
-[node name="CollisionShape-Diag" type="CollisionShape2D" parent="." unique_id=1631950506]
+[node name="CollisionShapeDiag" type="CollisionShape2D" parent="." unique_id=1631950506]
 visible = false
-position = Vector2(4, -4)
 rotation = 0.7853982
 shape = SubResource("CapsuleShape2D_mou6w")
+disabled = true
 
 [node name="SFX" type="AudioStreamPlayer2D" parent="." unique_id=1719318805]
 stream = SubResource("AudioStreamRandomizer_r1vd4")
+area_mask = 17
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

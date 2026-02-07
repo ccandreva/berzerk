@@ -68,20 +68,6 @@ texture = ExtResource("1_tcmdu")
 position = Vector2(-1.8576453e-05, -125)
 shape = SubResource("RectangleShape2D_v4dye")
 
-[node name="Left" type="StaticBody2D" parent="Arms" unique_id=375255683]
-visible = false
-collision_layer = 0
-collision_mask = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="Arms/Left" unique_id=974312515]
-position = Vector2(-108, 0)
-scale = Vector2(4.2, 4)
-texture = SubResource("AtlasTexture_4wil0")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/Left" unique_id=2067863231]
-position = Vector2(-108, 0)
-shape = SubResource("RectangleShape2D_2h7r3")
-
 [node name="Right" type="StaticBody2D" parent="Arms" unique_id=1344649996]
 visible = false
 rotation = -3.1415925
@@ -95,4 +81,18 @@ texture = SubResource("AtlasTexture_4wil0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/Right" unique_id=475044344]
 position = Vector2(-104.75, -1.8189894e-12)
+shape = SubResource("RectangleShape2D_2h7r3")
+
+[node name="Left" type="StaticBody2D" parent="Arms" unique_id=375255683]
+visible = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Arms/Left" unique_id=974312515]
+position = Vector2(-108, 0)
+scale = Vector2(4.2, 4)
+texture = SubResource("AtlasTexture_4wil0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/Left" unique_id=2067863231]
+position = Vector2(-108, 0)
 shape = SubResource("RectangleShape2D_2h7r3")

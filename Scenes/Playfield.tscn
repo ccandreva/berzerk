@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://cq65w45pv1afg" path="res://Scripts/Playfield.gd" id="1_llwvk"]
 [ext_resource type="Texture2D" uid="uid://b32mralmfrkfq" path="res://Assets/Art/Background.png" id="3_fkjvs"]
 [ext_resource type="PackedScene" uid="uid://betb3qguxdwkr" path="res://Scenes/pillar.tscn" id="4_4wil0"]
+[ext_resource type="AudioStream" uid="uid://b2bjrihqk3njr" path="res://Assets/Audio/Intruder_Alert.wav" id="4_16gb4"]
+[ext_resource type="PackedScene" uid="uid://e4u1wb23kbgs" path="res://Scenes/door.tscn" id="5_hvdpt"]
+[ext_resource type="PackedScene" uid="uid://6s33arayhnw3" path="res://Scenes/exit.tscn" id="6_r25s6"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_4wil0"]
 tile_data = PackedInt32Array(0, 131072, 0, 1, 196608, 0, 2, 262144, 0, 3, 327680, 0, 4, 393216, 0, 5, 458752, 0, 6, 524288, 0, 7, 589824, 0, 8, 655360, 0, 9, 720896, 0, 10, 786432, 0, 11, 851968, 0)
@@ -81,6 +84,11 @@ pattern_0 = SubResource("TileMapPattern_4wil0")
 pattern_1 = SubResource("TileMapPattern_2h7r3")
 pattern_2 = SubResource("TileMapPattern_v4dye")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hvdpt"]
+random_pitch = 1.1892071
+streams_count = 1
+stream_0/stream = ExtResource("4_16gb4")
+
 [node name="Playfield" type="Node2D" unique_id=1826274616]
 script = ExtResource("1_llwvk")
 
@@ -112,3 +120,42 @@ position = Vector2(632, 520)
 
 [node name="Pillar-8" parent="." unique_id=263088878 instance=ExtResource("4_4wil0")]
 position = Vector2(848, 520)
+
+[node name="IntruderAlert" type="AudioStreamPlayer" parent="." unique_id=908079276]
+stream = SubResource("AudioStreamRandomizer_hvdpt")
+autoplay = true
+
+[node name="Node2D" type="Node2D" parent="." unique_id=28620442]
+
+[node name="Doors" type="Node2D" parent="." unique_id=42153366]
+
+[node name="DoorWest" parent="Doors" unique_id=3679713 instance=ExtResource("5_hvdpt")]
+position = Vector2(8, 389)
+
+[node name="DoorEast" parent="Doors" unique_id=1734881560 instance=ExtResource("5_hvdpt")]
+position = Vector2(1049, 398)
+
+[node name="DoorNorth" parent="Doors" unique_id=1149760930 instance=ExtResource("5_hvdpt")]
+position = Vector2(535, 10)
+rotation = 1.5707964
+
+[node name="DoorSouth" parent="Doors" unique_id=1081141337 instance=ExtResource("5_hvdpt")]
+position = Vector2(525, 777)
+rotation = 1.5707964
+
+[node name="Exits" type="Node2D" parent="." unique_id=1453677243]
+
+[node name="ExitWest" parent="Exits" unique_id=29499520 instance=ExtResource("6_r25s6")]
+position = Vector2(0, 390)
+
+[node name="ExitEast" parent="Exits" unique_id=568206018 instance=ExtResource("6_r25s6")]
+position = Vector2(1055, 394)
+rotation = 3.1415927
+
+[node name="ExitNorth" parent="Exits" unique_id=2018892784 instance=ExtResource("6_r25s6")]
+position = Vector2(529, -4)
+rotation = 1.5707964
+
+[node name="ExitSouth" parent="Exits" unique_id=490309431 instance=ExtResource("6_r25s6")]
+position = Vector2(529, 808)
+rotation = 1.5707964

@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bcaob2cro5dws" path="res://Scripts/robot.gd" id="1_2vrla"]
 [ext_resource type="Texture2D" uid="uid://bk1t5q7ghnysb" path="res://Assets/Art/Robot.png" id="1_3cn6f"]
+[ext_resource type="PackedScene" uid="uid://ds7qtvdqeoa75" path="res://Scenes/laser.tscn" id="2_dwnub"]
+[ext_resource type="AudioStream" uid="uid://bgu4moe3rlmio" path="res://Assets/Audio/Ovani/Droid I Voice B.wav" id="3_6phhs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dfm56"]
 atlas = ExtResource("1_3cn6f")
@@ -47,22 +49,6 @@ region = Rect2(72, 0, 17, 19)
 atlas = ExtResource("1_3cn6f")
 region = Rect2(90, 0, 17, 19)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sdwbx"]
-atlas = ExtResource("1_3cn6f")
-region = Rect2(54, 40, 17, 19)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_603yn"]
-atlas = ExtResource("1_3cn6f")
-region = Rect2(72, 40, 17, 19)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xfmxk"]
-atlas = ExtResource("1_3cn6f")
-region = Rect2(90, 40, 17, 19)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nqv3b"]
-atlas = ExtResource("1_3cn6f")
-region = Rect2(72, 40, 17, 19)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_b7g11"]
 atlas = ExtResource("1_3cn6f")
 region = Rect2(0, 40, 17, 19)
@@ -94,6 +80,22 @@ region = Rect2(0, 20, 17, 19)
 [sub_resource type="AtlasTexture" id="AtlasTexture_1vn1p"]
 atlas = ExtResource("1_3cn6f")
 region = Rect2(18, 20, 17, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sdwbx"]
+atlas = ExtResource("1_3cn6f")
+region = Rect2(54, 40, 17, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_603yn"]
+atlas = ExtResource("1_3cn6f")
+region = Rect2(72, 40, 17, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfmxk"]
+atlas = ExtResource("1_3cn6f")
+region = Rect2(90, 40, 17, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqv3b"]
+atlas = ExtResource("1_3cn6f")
+region = Rect2(72, 40, 17, 19)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pva2i"]
 animations = [{
@@ -137,24 +139,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_20614")
 }],
 "loop": true,
-"name": &"Stand",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_sdwbx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_603yn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xfmxk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nqv3b")
-}],
-"loop": true,
-"name": &"WalkBack",
+"name": &"Idle",
 "speed": 5.0
 }, {
 "frames": [{
@@ -170,8 +155,8 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_edwai")
 }],
-"loop": true,
-"name": &"WalkFront",
+"loop": false,
+"name": &"WalkDown",
 "speed": 5.0
 }, {
 "frames": [{
@@ -195,24 +180,55 @@ animations = [{
 "loop": true,
 "name": &"WalkRight",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdwbx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_603yn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfmxk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqv3b")
+}],
+"loop": true,
+"name": &"WalkUp",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dfm56"]
 radius = 16.0
 height = 46.0
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_dwnub"]
+random_pitch = 1.0197154
+streams_count = 2
+stream_0/stream = ExtResource("3_6phhs")
+
 [node name="Robot" type="CharacterBody2D" unique_id=1730101901 groups=["Robots"]]
-collision_mask = 2
+collision_mask = 3
 script = ExtResource("1_2vrla")
+Laser = ExtResource("2_dwnub")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2119877315]
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_pva2i")
-animation = &"Death"
-autoplay = "Stand"
+animation = &"WalkUp"
+autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=557679861]
 position = Vector2(2, 8)
 shape = SubResource("CapsuleShape2D_dfm56")
 
+[node name="WalkTimer" type="Timer" parent="." unique_id=79269910]
+one_shot = true
+autostart = true
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="." unique_id=1634140592]
+stream = SubResource("AudioStreamRandomizer_dwnub")
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="WalkTimer" to="." method="_on_walk_timer_timeout"]

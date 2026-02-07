@@ -30,6 +30,7 @@ window/size/window_height_override=880
 
 Players="Player Objects"
 Robots=""
+Exits=""
 
 [input]
 
