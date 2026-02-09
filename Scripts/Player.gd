@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal player_died
+
 @export var Laser : PackedScene
 # Player speed
 @export var speed:int = 150
@@ -110,6 +112,6 @@ func kill_player() -> void:
 
 func _on_death_timer_timeout() -> void:
 	death_timer.stop()
-	queue_free()
+	state = "Idle"
 	# Restart the game
-	get_tree().reload_current_scene()
+	player_died.emit()

@@ -44,8 +44,8 @@ func remove_laser() -> void:
 	
 func _on_body_entered(body: Node2D) -> void:
 	# Kill whatever we hit
-	if body.is_in_group("Players"):
-		body.kill_player()
 	if body.is_in_group("Robots"):
 		body.kill_robot()
+	elif body.is_in_group("Players"):
+		body.kill_player()
 	remove_laser()

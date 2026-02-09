@@ -19,3 +19,15 @@ Player Start
 	
 Robot Start
 	North:	352	96
+
+Otto Frame /Collision y values
+0	-4
+1	-20
+2	-28
+3	-32
+4	-34
+5	-36
+6	-34
+7	-32
+8	-28
+9	-20

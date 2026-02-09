@@ -1,9 +1,11 @@
 extends CharacterBody2D
 
+signal robot_died
+
 @export var Laser : PackedScene
 
 # Get node instances we will need
-@onready var player: CharacterBody2D = get_node("../Player")
+@onready var player: CharacterBody2D = get_node("/root/Main/Player")
 @onready var walk_timer: Timer = get_node("./WalkTimer")
 
 # Robot speed
@@ -14,7 +16,12 @@ var state:String="Idle"
 var direction:String=""
 var current_sprite: String
 var is_shooting: bool = false
+var start_position:Vector2i
 
+func _ready() -> void:
+	# Save our initial position
+	start_position = position
+	
 func _physics_process(_delta: float) -> void:
 	if ( is_instance_valid(player)):
 		if (state == "Walk"):
@@ -39,7 +46,11 @@ func _set_sprite(new_sprite:String) ->void:
 func _vector_to_target(is_8way:bool = false) -> Vector2:
 	var direction_h:String
 	var direction_v:String
-	var direction_vector:Vector2 = (player.global_position - self.global_position).normalized()
+	var direction_vector:Vector2 = Vector2.ZERO
+	if (is_instance_valid(player)):
+		var position_p:Vector2 = player.global_position
+		var position_s:Vector2 = self.global_position
+		direction_vector = ( position_p - position_s).normalized()
 	# Lock direction to 8-bit 8-way positions
 	if (direction_vector != Vector2.ZERO):
 		direction_vector = direction_vector.snapped(Vector2(0.5,0.5)).normalized()
@@ -83,6 +94,7 @@ func remove_laser():
 func kill_robot() -> void:
 	# We're dead, we can't collide any more
 	set_collision_layer_value(1, false)
+	robot_died.emit()
 	walk_timer.stop()
 	$DeathSound.play()
 	state = "Death"
@@ -102,14 +114,30 @@ func walk_robot():
 		state="Walk"
 
 
+# Disable robot by stopping processing
+# And movving off the playing field
+func disable_robot():
+	process_mode=Node.PROCESS_MODE_DISABLED
+	set_collision_layer_value(1, false)
+	walk_timer.stop()
+	position=Vector2i(-5000,-5000)
+
+func init_robot():
+	position=start_position
+	state="Idle"
+	set_collision_layer_value(1, true)
+	process_mode=Node.PROCESS_MODE_INHERIT
+	walk_timer.start(randf_range(0.5,1.5))
+	process_mode=Node.PROCESS_MODE_INHERIT
+
 func _on_animated_sprite_2d_animation_finished() -> void:
 	walk_timer.stop()
 	match state:
 		"Death":
-			queue_free()
+			disable_robot()
 		"Walk":
 			idle_robot()
-			walk_timer.start()
+			walk_timer.start(randf_range(0.5,1.5))
 
 	
 

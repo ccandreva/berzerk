@@ -4,20 +4,29 @@
 [ext_resource type="Script" uid="uid://cujpunrof3acu" path="res://Scripts/main.gd" id="1_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://d2h3377l4gviy" path="res://Scenes/player.tscn" id="2_spliy"]
 [ext_resource type="PackedScene" uid="uid://bsgfbhqt6cn4k" path="res://Scenes/robot.tscn" id="3_cuv0i"]
+[ext_resource type="PackedScene" uid="uid://dqc27mfxgppk" path="res://Scenes/evil_otto.tscn" id="5_kry3j"]
 
 [node name="Main" type="Node2D" unique_id=1843548130]
 script = ExtResource("1_jjvhh")
-playfield = ExtResource("1_hx5sn")
-player = ExtResource("2_spliy")
-robot = ExtResource("3_cuv0i")
 
 [node name="Playfield" parent="." unique_id=1826274616 instance=ExtResource("1_hx5sn")]
 
 [node name="Player" parent="." unique_id=146244608 instance=ExtResource("2_spliy")]
 position = Vector2(103, 407)
 
-[node name="Robot" parent="." unique_id=1730101901 instance=ExtResource("3_cuv0i")]
+[node name="Robots" type="Node" parent="." unique_id=1082737953]
+
+[node name="Robot-01" parent="Robots" unique_id=1730101901 instance=ExtResource("3_cuv0i")]
 position = Vector2(352, 96)
+
+[node name="Robot-02" parent="Robots" unique_id=70304362 instance=ExtResource("3_cuv0i")]
+position = Vector2(736, 656)
+
+[node name="Robot-03" parent="Robots" unique_id=2039488583 instance=ExtResource("3_cuv0i")]
+position = Vector2(920, 88)
+
+[node name="Robot-04" parent="Robots" unique_id=1055450310 instance=ExtResource("3_cuv0i")]
+position = Vector2(504, 616)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=752747058]
 visible = false
@@ -42,3 +51,6 @@ text = "Hello, World"
 [node name="Label2" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=693277556]
 layout_mode = 2
 text = "How are you today "
+
+[node name="EvilOtto" parent="." unique_id=1787455862 instance=ExtResource("5_kry3j")]
+position = Vector2(304, 752)

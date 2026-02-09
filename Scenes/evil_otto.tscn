@@ -1,0 +1,161 @@
+[gd_scene format=3 uid="uid://dqc27mfxgppk"]
+
+[ext_resource type="Script" uid="uid://b2h5ktwi7nkt1" path="res://Scenes/evil_otto.gd" id="1_7bjh5"]
+[ext_resource type="Texture2D" uid="uid://gw883uru0kgc" path="res://Assets/Art/Otto-bounce.png" id="1_yw4ir"]
+[ext_resource type="Texture2D" uid="uid://bocwsj8kkahip" path="res://Assets/Art/Otto-full.png" id="2_yw4ir"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rdk81"]
+size = Vector2(8, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7stt"]
+atlas = ExtResource("1_yw4ir")
+region = Rect2(0, 0, 8, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vqke"]
+atlas = ExtResource("1_yw4ir")
+region = Rect2(9, 0, 8, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kblwi"]
+atlas = ExtResource("1_yw4ir")
+region = Rect2(18, 0, 8, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwn1f"]
+atlas = ExtResource("1_yw4ir")
+region = Rect2(27, 0, 8, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4gnt0"]
+atlas = ExtResource("1_yw4ir")
+region = Rect2(36, 0, 8, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_co6ml"]
+atlas = ExtResource("1_yw4ir")
+region = Rect2(45, 0, 8, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rw050"]
+atlas = ExtResource("1_yw4ir")
+region = Rect2(36, 0, 8, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iidk1"]
+atlas = ExtResource("1_yw4ir")
+region = Rect2(27, 0, 8, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60775"]
+atlas = ExtResource("1_yw4ir")
+region = Rect2(18, 0, 8, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dwdj"]
+atlas = ExtResource("1_yw4ir")
+region = Rect2(9, 0, 8, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7bjh5"]
+atlas = ExtResource("2_yw4ir")
+region = Rect2(0, 41, 8, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5oq8"]
+atlas = ExtResource("2_yw4ir")
+region = Rect2(9, 41, 8, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_et0mb"]
+atlas = ExtResource("2_yw4ir")
+region = Rect2(18, 41, 8, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxij2"]
+atlas = ExtResource("2_yw4ir")
+region = Rect2(27, 41, 8, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pucp3"]
+atlas = ExtResource("2_yw4ir")
+region = Rect2(36, 41, 8, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfpt6"]
+atlas = ExtResource("2_yw4ir")
+region = Rect2(45, 41, 8, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_isvp7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7stt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vqke")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kblwi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwn1f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4gnt0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_co6ml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rw050")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iidk1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60775")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dwdj")
+}],
+"loop": true,
+"name": &"Bounce",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7bjh5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5oq8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_et0mb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxij2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pucp3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfpt6")
+}],
+"loop": false,
+"name": &"Spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f5oq8"]
+radius = 4.0
+
+[node name="EvilOtto" type="CharacterBody2D" unique_id=1787455862]
+scale = Vector2(4, 4)
+collision_layer = 0
+script = ExtResource("1_7bjh5")
+
+[node name="CollisionSprite" type="CollisionShape2D" parent="." unique_id=1783814821]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_rdk81")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2112435508]
+position = Vector2(0, -20)
+sprite_frames = SubResource("SpriteFrames_isvp7")
+animation = &"Spawn"
+autoplay = "Spawn"
+metadata/_edit_lock_ = true
+
+[node name="OttoTrigger" type="Area2D" parent="." unique_id=277538635]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionOtto" type="CollisionShape2D" parent="OttoTrigger" unique_id=683332692]
+position = Vector2(0, -2.5)
+scale = Vector2(1, 0.7)
+shape = SubResource("CircleShape2D_f5oq8")

@@ -8,7 +8,7 @@ size = Vector2(20, 244)
 [node name="Exit" type="Area2D" unique_id=29499520 groups=["Exits"]]
 script = ExtResource("1_35a55")
 
-[node name="ExitCollision" type="CollisionShape2D" parent="." unique_id=1350894589 groups=["Exits"]]
+[node name="ExitCollision" type="CollisionShape2D" parent="." unique_id=1350894589]
 position = Vector2(-10, 4)
 shape = SubResource("RectangleShape2D_xsbdy")
 
