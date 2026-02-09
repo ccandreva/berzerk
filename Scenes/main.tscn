@@ -53,4 +53,4 @@ layout_mode = 2
 text = "How are you today "
 
 [node name="EvilOtto" parent="." unique_id=1787455862 instance=ExtResource("5_kry3j")]
-position = Vector2(304, 752)
+position = Vector2(56, 424)

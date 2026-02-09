@@ -49,3 +49,7 @@ func _on_body_entered(body: Node2D) -> void:
 	elif body.is_in_group("Players"):
 		body.kill_player()
 	remove_laser()
+
+
+func _on_area_entered(_area: Area2D) -> void:
+	remove_laser()

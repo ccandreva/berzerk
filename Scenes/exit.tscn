@@ -6,6 +6,8 @@
 size = Vector2(20, 244)
 
 [node name="Exit" type="Area2D" unique_id=29499520 groups=["Exits"]]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_35a55")
 
 [node name="ExitCollision" type="CollisionShape2D" parent="." unique_id=1350894589]

@@ -4,8 +4,11 @@ extends Node2D
 @onready var player:CharacterBody2D = get_node("Player")
 #@onready var robot: CharacterBody2D = get_node("Robot")
 @onready var robots: Node = get_node("Robots")
+@onready var evil_otto:Node = get_node("EvilOtto")
+
 var robot: Array[CharacterBody2D]
-var num_robots : int
+var robots_max : int
+var robots_live: int
 var room_x:int = 0
 var room_y:int = 0
 var last_exit:String = "ExitEast"
@@ -26,11 +29,11 @@ func _ready() -> void:
 	get_tree().call_group("Exits","connect", "exit_triggered", 
 		Callable(self,"_on_exit_triggered"))
 	player.connect("player_died", Callable(self, "_on_player_died"))
-	num_robots = robots.get_child_count()
-	for i in num_robots:
+	robots_max = robots.get_child_count()
+	for i in robots_max:
 		robot.append(robots.get_child(i))
-		robot[i].connect("robot_died", Callable(self,"on_robot_died"))
-	
+		robot[i].connect("robot_died", Callable(self,"_on_robot_died"))
+	_reset_characters()
 	_start_level()
 
 
@@ -40,14 +43,17 @@ func _start_level() -> void:
 
 
 func _reset_characters():
-	for i in num_robots:
+	for i in robots_max:
 		robot[i].init_robot()
+	robots_live = robots_max
 	player.position = player_starts[last_exit]
+	evil_otto.init_otto()
 
 
 func _end_level() -> void:
-	for i in num_robots:
+	for i in robots_max:
 		robot[i].disable_robot()
+	evil_otto.disable_otto()
 
 
 func _on_player_died() -> void:
@@ -56,9 +62,18 @@ func _on_player_died() -> void:
 	print(str("Lives: ", lives))
 	_reset_characters()
 
+
 func _on_robot_died() -> void:
-	score += 50
-	print(str("Score: ", score))
+	if robots_live>0:
+		score += 50
+		robots_live -= 1
+		if (robots_live == 0):
+			score += 80
+		print(str("Score: ", score))
+		print(str("robots_live = ",robots_live))
+	else:
+		print(str("Robot died when robots_live = ",robots_live))
+
 
 func _on_exit_triggered(exit_name: String) ->void:
 		last_exit = exit_name

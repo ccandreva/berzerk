@@ -253,6 +253,7 @@ size = Vector2(8, 7)
 height = 53.0
 
 [node name="Player" type="CharacterBody2D" unique_id=146244608 groups=["Players"]]
+collision_layer = 6
 collision_mask = 3
 script = ExtResource("1_147mo")
 Laser = ExtResource("2_6t5aa")
