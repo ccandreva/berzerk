@@ -107,7 +107,7 @@ func kill_player() -> void:
 		state = "Death"
 		direction = ""
 		death_timer.start()
-		$GotTheIntruder.play()
+		#$GotTheIntruder.play()
 		$"DeathSound".play()
 
 

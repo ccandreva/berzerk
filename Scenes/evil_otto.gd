@@ -33,14 +33,17 @@ func _physics_process(_delta: float) -> void:
 			move_and_slide()
 
 # Disable otto by stopping processing
-# And movving off the playing field
+# And moving off the playing field
 func disable_otto():
 	process_mode=Node.PROCESS_MODE_DISABLED
 	position=Vector2i(-5000,-5000)
 
 
 func init_otto():
+	process_mode=Node.PROCESS_MODE_INHERIT
+	position=Vector2i(-5000,-5000)
 	state = "Idle"
+	sprite.play("Idle")
 	timer_otto_spawn.start()
 	
 func spawn_otto():

@@ -4,6 +4,16 @@ They say a good starting point to learn Godot (or any game engine) is to
 write a classic game. I've wanted to do Berzerk for a while, and finally am
 trying my heand at it.
 
+## Maze Generation
+Maze generation had been documented on the Robotron 2084 site. It's
+currently down however is available via the Wayback machine:
+https://web.archive.org/web/20200403110753/http://www.robotron2084guidebook.com/home/games/berzerk/mazegenerator/code/
+
+
+## Robot AI
+This site describes the Robot AI in detail:
+https://www.retrogamedeconstructionzone.com/2020/03/decoding-berzerk-ai.html
+
 ## Scoring
 50 points on each robot death, no matter how it dies.
 10 points per robot on all robots dying, even if Otto gets you
