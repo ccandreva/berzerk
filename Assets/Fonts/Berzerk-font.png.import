@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b33w6i0kpp1ey"
-path="res://.godot/imported/Berzerk-font.png-6b6cfd2d6562e540403f7a50382688b2.ctex"
+uid="uid://i6et41bbk2ch"
+path="res://.godot/imported/Berzerk-font.png-e44ae0b460c8570bcb400d86f18c9488.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/Berzerk-font.png"
-dest_files=["res://.godot/imported/Berzerk-font.png-6b6cfd2d6562e540403f7a50382688b2.ctex"]
+source_file="res://Assets/Fonts/Berzerk-font.png"
+dest_files=["res://.godot/imported/Berzerk-font.png-e44ae0b460c8570bcb400d86f18c9488.ctex"]
 
 [params]
 

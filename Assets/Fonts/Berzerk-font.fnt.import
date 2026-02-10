@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://or0kj8gff00i"
+path="res://.godot/imported/Berzerk-font.fnt-e7556f140d96e83329ecc9e5fe28b0eb.fontdata"
+
+[deps]
+
+source_file="res://Assets/Fonts/Berzerk-font.fnt"
+dest_files=["res://.godot/imported/Berzerk-font.fnt-e7556f140d96e83329ecc9e5fe28b0eb.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2

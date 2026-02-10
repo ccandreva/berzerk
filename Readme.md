@@ -4,8 +4,14 @@ They say a good starting point to learn Godot (or any game engine) is to
 write a classic game. I've wanted to do Berzerk for a while, and finally am
 trying my heand at it.
 
+## Scoring
+50 points on each robot death, no matter how it dies.
+10 points per robot on all robots dying, even if Otto gets you
+   before you leave.
 
 ## Random Notes
+
+B
 
 Grid for pillars
 

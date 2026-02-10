@@ -1,0 +1,8 @@
+[gd_resource type="Theme" format=3 uid="uid://cqr4swqrnbn6b"]
+
+[ext_resource type="FontFile" uid="uid://or0kj8gff00i" path="res://Assets/Fonts/Berzerk-font.fnt" id="1_hiev6"]
+
+[resource]
+Label/colors/font_color = Color(0, 1, 0, 1)
+Label/font_sizes/font_size = 30
+Label/fonts/font = ExtResource("1_hiev6")

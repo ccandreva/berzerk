@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bi2nmoy6mmq84" path="res://Assets/Art/Players.png" id="1_onrkg"]
 [ext_resource type="PackedScene" uid="uid://ds7qtvdqeoa75" path="res://Scenes/laser.tscn" id="2_6t5aa"]
 [ext_resource type="AudioStream" uid="uid://b0svy0k6le60n" path="res://Assets/Audio/Ovani/Robot Combat Move F.wav" id="4_vgqql"]
+[ext_resource type="AudioStream" uid="uid://cu31sagmc41ia" path="res://Assets/Audio/GotTheIntruder.wav" id="5_fkybt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hg5i4"]
 atlas = ExtResource("1_onrkg")
@@ -252,6 +253,11 @@ size = Vector2(8, 7)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b26j0"]
 height = 53.0
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_x3wgy"]
+random_pitch = 1.0594631
+streams_count = 1
+stream_0/stream = ExtResource("5_fkybt")
+
 [node name="Player" type="CharacterBody2D" unique_id=146244608 groups=["Players"]]
 collision_layer = 6
 collision_mask = 3
@@ -314,5 +320,10 @@ one_shot = true
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="." unique_id=1860851890]
 stream = ExtResource("4_vgqql")
+volume_db = -5.379
+
+[node name="GotTheIntruder" type="AudioStreamPlayer" parent="." unique_id=1664039411]
+stream = SubResource("AudioStreamRandomizer_x3wgy")
+volume_db = 1.149
 
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
