@@ -53,9 +53,7 @@ func _vector_to_target(is_8way:bool = false) -> Vector2:
 	var direction_v:String
 	var direction_vector:Vector2 = Vector2.ZERO
 	if (is_instance_valid(player)):
-		var position_p:Vector2 = player.global_position
-		var position_s:Vector2 = self.global_position
-		direction_vector = ( position_p - position_s).normalized()
+		direction_vector = ( player.global_position - self.global_position).normalized()
 	# Lock direction to 8-bit 8-way positions
 	if (direction_vector != Vector2.ZERO):
 		direction_vector = direction_vector.snapped(Vector2(0.5,0.5)).normalized()
@@ -99,7 +97,7 @@ func shoot(direction_vector: Vector2):
 	# Set initial positoin to robot position,
 	# plus a bit along the shot path
 	laser.transform = self.global_transform
-	laser.position += (direction_vector * 25)
+	laser.position += (direction_vector * 30)
 	# Add to the parent, so it doesn't move with us.
 	owner.add_child(laser)
 	laser.active()
@@ -145,6 +143,7 @@ func init_robot():
 	position=start_position
 	sprite.set_instance_shader_parameter("new_color", color)
 	state="Idle"
+	is_shooting = false
 	set_collision_layer_value(1, true)
 	process_mode=Node.PROCESS_MODE_INHERIT
 	walk_timer.start(randf_range(0.5,1.5))
