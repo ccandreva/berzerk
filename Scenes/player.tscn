@@ -259,8 +259,9 @@ streams_count = 1
 stream_0/stream = ExtResource("5_fkybt")
 
 [node name="Player" type="CharacterBody2D" unique_id=146244608 groups=["Players"]]
-collision_layer = 6
+collision_layer = 12
 collision_mask = 3
+motion_mode = 1
 script = ExtResource("1_147mo")
 Laser = ExtResource("2_6t5aa")
 

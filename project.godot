@@ -69,6 +69,7 @@ Action-A={
 2d_physics/layer_1="Walls"
 2d_physics/layer_2="Pillars"
 2d_physics/layer_3="Exits"
+2d_physics/layer_4="Player"
 
 [rendering]
 
