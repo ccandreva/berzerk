@@ -5,9 +5,12 @@ var notify_spawner : Callable
 var direction_vector: Vector2 
 var state: String
 var direction: String
+var color:Color = Color(0,0,1)
 var deg90:float= PI/2
+
 func _ready() -> void:
 	$SFX.play()
+	
 
 func _physics_process(_delta: float) -> void:
 	if (state == "Active"):
@@ -18,19 +21,26 @@ func set_direction(new_direction_vector: Vector2, new_direction: String) -> void
 	direction_vector = new_direction_vector
 	direction = new_direction
 	# Use the direction string length see if this is straight or diag
+	var sprite_node:Sprite2D
+	var collision_node:CollisionShape2D
 	if (direction.length() <6):
-		$"SpriteStraight".visible = true
-		$"CollisionShapeStraight".disabled = false
+		sprite_node = get_node("SpriteStraight")
+		collision_node = get_node("CollisionShapeStraight")
 		if (direction_vector.y != 0): 
-			$"SpriteStraight".rotate(deg90)
-			$"CollisionShapeStraight".rotate(deg90)
+			sprite_node.rotate(deg90)
+			collision_node.rotate(deg90)
 	else:
-		$"SpriteDiag".visible = true
-		$"CollisionShapeDiag".disabled = false
-		if ((direction =="UpLeft") or(direction =="DownRight")):
-			$"SpriteDiag".rotate(deg90)
-			$"CollisionShapeDiag".rotate(deg90)
-				
+		sprite_node = get_node("SpriteDiag")
+		collision_node = get_node("CollisionShapeDiag")
+		if ((direction =="UpLeft") or (direction =="DownRight")):
+			sprite_node.rotate(deg90)
+			collision_node.rotate(deg90)
+	
+	sprite_node.set_instance_shader_parameter("new_color", color)
+	sprite_node.visible = true
+	collision_node.disabled = false
+
+
 func active() -> void:
 	state = "Active"
 

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bk1t5q7ghnysb" path="res://Assets/Art/Robot.png" id="1_3cn6f"]
 [ext_resource type="PackedScene" uid="uid://ds7qtvdqeoa75" path="res://Scenes/laser.tscn" id="2_dwnub"]
 [ext_resource type="AudioStream" uid="uid://bgu4moe3rlmio" path="res://Assets/Audio/Ovani/Droid I Voice B.wav" id="3_6phhs"]
+[ext_resource type="Material" uid="uid://786upk8rbxya" path="res://Materials/SetColor.tres" id="3_ntbue"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dfm56"]
 atlas = ExtResource("1_3cn6f")
@@ -214,6 +215,7 @@ script = ExtResource("1_2vrla")
 Laser = ExtResource("2_dwnub")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2119877315]
+material = ExtResource("3_ntbue")
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_pva2i")
 animation = &"WalkUp"
@@ -222,6 +224,21 @@ autoplay = "Idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=557679861]
 position = Vector2(2, 8)
 shape = SubResource("CapsuleShape2D_dfm56")
+
+[node name="RayCastSouth" type="RayCast2D" parent="CollisionShape2D" unique_id=718353959]
+collision_mask = 2
+
+[node name="RayCastNorth" type="RayCast2D" parent="CollisionShape2D" unique_id=712127280]
+rotation = 3.1415927
+collision_mask = 2
+
+[node name="RayCastWest" type="RayCast2D" parent="CollisionShape2D" unique_id=2072325570]
+rotation = 1.5707964
+collision_mask = 2
+
+[node name="RayCastEast" type="RayCast2D" parent="CollisionShape2D" unique_id=708837435]
+rotation = -1.5707964
+collision_mask = 2
 
 [node name="WalkTimer" type="Timer" parent="." unique_id=79269910]
 one_shot = true

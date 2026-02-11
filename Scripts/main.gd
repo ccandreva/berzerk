@@ -23,6 +23,9 @@ var player_starts : Dictionary = {
 	"ExitNorth": Vector2i(535, 727),
 }
 
+var level:int = 0
+var level_max = 1
+var level_colors : Array[Color] = [ Color(1,1,0), Color(1,0,0)]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -52,9 +55,11 @@ func _update_lives() -> void:
 
 func _reset_characters():
 	for i in robots_max:
+		robot[i].color = level_colors[level]
 		robot[i].init_robot()
 	robots_live = robots_max
 	player.position = player_starts[last_exit]
+	evil_otto.color = level_colors[level]
 	evil_otto.init_otto()
 
 
@@ -62,6 +67,9 @@ func _end_level() -> void:
 	for i in robots_max:
 		robot[i].disable_robot()
 	evil_otto.disable_otto()
+	level +=1
+	if (level > level_max):
+		level = 0
 
 
 func _on_player_died() -> void:

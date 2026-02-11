@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" format=3 uid="uid://u5yl460wa2dm"]
+[gd_resource type="VisualShader" format=3 uid="uid://b0keaokmvo25s"]
 
 [sub_resource type="VisualShaderNodeIf" id="VisualShaderNodeIf_hxhyp"]
 output_port_for_preview = 0
@@ -9,9 +9,11 @@ input_name = "color"
 [sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_gmh6e"]
 
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_hxhyp"]
-parameter_name = "ColorParameter"
+output_port_for_preview = 0
+parameter_name = "new_color"
+qualifier = 2
 default_value_enabled = true
-default_value = Color(0, 1, 0, 1)
+default_value = Color(0.85490197, 0.24705882, 0.9529412, 1)
 
 [resource]
 mode = 1

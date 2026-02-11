@@ -7,6 +7,10 @@ signal robot_died
 # Get node instances we will need
 @onready var player: CharacterBody2D = get_node("/root/Main/Player")
 @onready var walk_timer: Timer = get_node("./WalkTimer")
+@onready var RayCastNorth : RayCast2D = get_node("./CollisionShape2D/RayCastNorth")
+@onready var RayCastSouth : RayCast2D = get_node("./CollisionShape2D/RayCastSouth")
+@onready var RayCastEast : RayCast2D = get_node("./CollisionShape2D/RayCastEast")
+@onready var RayCastWest : RayCast2D = get_node("./CollisionShape2D/RayCastWest")
 
 # Robot speed
 @export var speed:int = 20
@@ -17,6 +21,7 @@ var direction:String=""
 var current_sprite: String
 var is_shooting: bool = false
 var start_position:Vector2i
+var color:Color = Color(1,1,0)
 
 func _ready() -> void:
 	# Save our initial position
@@ -56,13 +61,25 @@ func _vector_to_target(is_8way:bool = false) -> Vector2:
 		direction_vector = direction_vector.snapped(Vector2(0.5,0.5)).normalized()
 	# Set the direction label
 	if (direction_vector.x<0):
-		direction_h="Left"
+		if (RayCastWest.is_colliding()):
+			direction_vector.x = 0
+		else:
+			direction_h="Left"
 	elif (direction_vector.x>0):
-		direction_h="Right"
+		if (RayCastEast.is_colliding()):
+			direction_vector.x = 0
+		else:
+			direction_h="Right"
 	if (direction_vector.y < 0):
-		direction_v="Up"
+		if (RayCastNorth.is_colliding()):
+			direction_vector.y = 0
+		else:
+			direction_v="Up"
 	elif (direction_vector.y > 0):
-		direction_v="Down"
+		if (RayCastSouth.is_colliding()):
+			direction_vector.y = 0
+		else:
+			direction_v="Down"
 	
 	if is_8way:
 		direction = str(direction_v,direction_h)
@@ -76,6 +93,8 @@ func shoot(direction_vector: Vector2):
 		return
 	var laser:Area2D = Laser.instantiate()
 	laser.notify_spawner = Callable(self,"remove_laser")
+	laser.color = color
+	laser.speed = 300
 	laser.set_direction(direction_vector, direction)
 	# Set initial positoin to robot position,
 	# plus a bit along the shot path
@@ -124,6 +143,7 @@ func disable_robot():
 
 func init_robot():
 	position=start_position
+	sprite.set_instance_shader_parameter("new_color", color)
 	state="Idle"
 	set_collision_layer_value(1, true)
 	process_mode=Node.PROCESS_MODE_INHERIT

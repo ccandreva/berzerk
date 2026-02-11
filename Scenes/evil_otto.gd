@@ -9,13 +9,17 @@ extends CharacterBody2D
 
 var sprite:AnimatedSprite2D
 var collision:CollisionShape2D
+# Collision y positions to follow the bouncing head
 var collision_y : Array = [-2.5, -20, -28, -32, -34, -36, -34, -32, -28, -20 ]
+# Squash the hit box for spawn in
 var collision_scale_y:Array = [0.7,1,1,1,1,1,1,1,1,1]
 var start_position:Vector2
 var state:String = "Idle"
+var color:Color
 
 func _ready() -> void:
 	sprite = get_node("AnimatedSprite2D")
+	sprite.set_instance_shader_parameter("new_color", color)
 	collision = get_node("OttoTrigger/CollisionOtto")
 	$OttoTrigger.body_entered.connect(Callable(self,"_on_otto_trigger_body_entered"))
 	timer_otto_spawn.timeout.connect(Callable(self, "spawn_otto"))
@@ -35,6 +39,7 @@ func _physics_process(_delta: float) -> void:
 # Disable otto by stopping processing
 # And moving off the playing field
 func disable_otto():
+	sprite.disconnect("frame_changed", Callable(self, "_on_frame_changed"))
 	process_mode=Node.PROCESS_MODE_DISABLED
 	position=Vector2i(-5000,-5000)
 
@@ -43,6 +48,7 @@ func init_otto():
 	process_mode=Node.PROCESS_MODE_INHERIT
 	position=Vector2i(-5000,-5000)
 	state = "Idle"
+	sprite.set_instance_shader_parameter("new_color", color)
 	sprite.play("Idle")
 	timer_otto_spawn.start()
 	
@@ -52,8 +58,8 @@ func spawn_otto():
 	collision.position.y = collision_y[0]
 	collision.scale.y = collision_scale_y[0]
 	process_mode=Node.PROCESS_MODE_INHERIT
-	sprite.play("Spawn")
 	sprite.animation_finished.connect(Callable(self,"_on_animation_finished"))
+	sprite.play("Spawn")
 
 
 func _on_animation_finished() -> void:
@@ -70,6 +76,7 @@ func _on_frame_changed() -> void:
 
 
 func _on_otto_trigger_body_entered(body: Node2D) -> void:
+	# if body.has_method("die"):
 	if body.is_in_group("Robots"):
 		body.kill_robot()
 	elif body.is_in_group("Players"):

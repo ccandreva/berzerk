@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b2h5ktwi7nkt1" path="res://Scenes/evil_otto.gd" id="1_7bjh5"]
 [ext_resource type="Texture2D" uid="uid://gw883uru0kgc" path="res://Assets/Art/Otto-bounce.png" id="1_yw4ir"]
+[ext_resource type="Material" uid="uid://786upk8rbxya" path="res://Materials/SetColor.tres" id="2_f5oq8"]
 [ext_resource type="Texture2D" uid="uid://bocwsj8kkahip" path="res://Assets/Art/Otto-full.png" id="2_yw4ir"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rdk81"]
@@ -157,6 +158,7 @@ position = Vector2(0, -20)
 shape = SubResource("RectangleShape2D_rdk81")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2112435508]
+material = ExtResource("2_f5oq8")
 position = Vector2(0, -20)
 sprite_frames = SubResource("SpriteFrames_isvp7")
 animation = &"Idle"
