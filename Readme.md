@@ -4,6 +4,15 @@ They say a good starting point to learn Godot (or any game engine) is to
 write a classic game. I've wanted to do Berzerk for a while, and finally am
 trying my heand at it.
 
+## Assets
+The sprites are from The Spriters Resource, with some editing via Image
+Magick to make them more compatible with Godot and BMFont formats:
+https://www.spriters-resource.com/arcade/berzerk/
+
+Speech is generated via espeak-ng and the "gmw/en-US" voice. I'm using sound
+effects from an Ovani pack I bought some time ago in a Humble Bundle, so
+those are not included in the Git repo. 
+
 ## Maze Generation
 Maze generation had been documented on the Robotron 2084 site. It's
 currently down however is available via the Wayback machine:
