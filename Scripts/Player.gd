@@ -90,7 +90,7 @@ func shoot(direction_vector: Vector2):
 	laser.notify_spawner = Callable(self,"remove_laser")
 	laser.color = Color(0,1,0)
 	laser.set_direction(direction_vector, direction)
-	laser.transform = muzzle.global_transform
+	laser.position = muzzle.global_position
 	# Add to the parent, so it doesn't move with us.
 	owner.add_child(laser)
 	laser.active()
