@@ -41,7 +41,7 @@ func set_direction(new_direction_vector: Vector2, new_direction: String) -> void
 	
 	sprite_node.set_instance_shader_parameter("new_color", color)
 	sprite_node.visible = true
-	collision_node.disabled = false
+	collision_node.set_deferred("disabled", false)
 
 
 func active() -> void:
@@ -50,12 +50,16 @@ func active() -> void:
 func remove_laser() -> void:
 	# If the callable has been set, call it to remove the laser count
 	# From whatever spawned this shot
-	if (notify_spawner != null):
-		notify_spawner.call()
-	# Set laser to inactive first
-	collision_node.disabled = true
-	sprite_node.visible = false
+	if (state == "Inactive"):
+		return
 	state = "Inactive"
+	var local_notify_spawner = notify_spawner
+	notify_spawner = Callable()
+	if (local_notify_spawner.is_valid()):
+		local_notify_spawner.call()
+	# Set laser to inactive first
+	collision_node.set_deferred("disabled", true)
+	sprite_node.visible = false
 	# If the SFX is still playing, wait for it to finish
 	if (sfx_node.playing == true):
 		await sfx_node.finished
@@ -67,7 +71,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Robots"):
 		body.kill_robot()
 	elif body.is_in_group("Players"):
-		body.kill_player()
+		body.kill_player(self)
 	
 	remove_laser()
 

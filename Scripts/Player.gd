@@ -28,9 +28,10 @@ func _physics_process(_delta: float) -> void:
 	if (state == "Walk"):
 		var collision = move_and_collide(input_vector * speed * _delta)
 		if (collision):
-			if (collision.get_collider().is_in_group("Exits")):
+			var collider:CollisionObject2D = collision.get_collider()
+			if (collider.is_in_group("Exits")):
 				print("Hit Exit!")
-			kill_player()
+			kill_player(collider)
 
 	# Play an animation based on the directions we built, 
 	# or if we are dead.
@@ -102,8 +103,9 @@ func remove_laser():
 	laser_count -= 1
 
 
-func kill_player() -> void:
+func kill_player(killer:CollisionObject2D) -> void:
 	# You only die once, even if they shoot you again.
+	print("Player killed by: ", killer)
 	if state != "Death":
 		state = "Death"
 		direction = ""

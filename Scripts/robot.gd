@@ -42,8 +42,9 @@ func _physics_process(_delta: float) -> void:
 				# If we walked into something we're dead. 
 				if (collision):
 					# So is the player if we walked into them
-					if (collision.get_collider().name == "Player"):
-						player.kill_player()
+					var collider = collision.get_collider()
+					if (collider.name == "Player"):
+						player.kill_player(collider)
 					kill_robot()
 		#No player or no way to wlak, we are idle
 		else:
@@ -102,9 +103,11 @@ func _direction_vector_to_word(direction_vector: Vector2, is_8way:bool = false):
 
 func shoot(direction_vector: Vector2, direction_string: String):
 	# We can only shoot once, so skip if we are already shooting
-	print(str("Count: ", laser_count, " max: ", laser_max))
 	if (laser_count  >= laser_max):
+		print(str("Shot count: ", laser_count, " max: ", laser_max, ", Exiting"))
 		return
+	print(str("Shot count: ", laser_count, " max: ", laser_max, ", Firing"))
+	laser_count +=1
 	var laser:Area2D = Laser.instantiate()
 	laser.notify_spawner = Callable(self,"remove_laser")
 	laser.color = color
@@ -117,11 +120,13 @@ func shoot(direction_vector: Vector2, direction_string: String):
 	# Add to the parent, so it doesn't move with us.
 	owner.add_child(laser)
 	laser.active()
-	laser_count +=1
 
 
 func remove_laser():
-	laser_count -=1
+	if (laser_count > 0):
+		laser_count -=1
+	else:
+		print("Attempt to remove laser when count is 0")
 
 
 func kill_robot() -> void:
@@ -148,6 +153,7 @@ func init_robot():
 	state="Idle"
 	set_collision_layer_value(1, true)
 	process_mode=Node.PROCESS_MODE_INHERIT
+	laser_count = 0
 	shoot_timer.start(randf_range(2,4))
 
 func _on_animated_sprite_2d_animation_finished() -> void:

@@ -80,5 +80,5 @@ func _on_otto_trigger_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Robots"):
 		body.kill_robot()
 	elif body.is_in_group("Players"):
-		body.kill_player()
+		body.kill_player(self)
 	
