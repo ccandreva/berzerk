@@ -128,6 +128,7 @@ metadata/_edit_lock_ = true
 
 [node name="IntruderAlert" type="AudioStreamPlayer" parent="." unique_id=908079276]
 stream = SubResource("AudioStreamRandomizer_hvdpt")
+bus = &"Speech"
 
 [node name="Doors" type="Node2D" parent="." unique_id=42153366]
 

@@ -6,7 +6,7 @@ signal robot_died
 
 # Get node instances we will need
 @onready var player: CharacterBody2D = get_node("/root/Main/Player")
-@onready var walk_timer: Timer = get_node("./WalkTimer")
+@onready var shoot_timer: Timer = get_node("./ShootTimer")
 @onready var RayCastNorth : RayCast2D = get_node("./CollisionShape2D/RayCastNorth")
 @onready var RayCastSouth : RayCast2D = get_node("./CollisionShape2D/RayCastSouth")
 @onready var RayCastEast : RayCast2D = get_node("./CollisionShape2D/RayCastEast")
@@ -19,7 +19,8 @@ signal robot_died
 var state:String="Idle"
 var direction:String=""
 var current_sprite: String
-var is_shooting: bool = false
+var laser_count:int = 0
+var laser_max: int = 0
 var start_position:Vector2i
 var color:Color = Color(1,1,0)
 
@@ -28,107 +29,109 @@ func _ready() -> void:
 	start_position = position
 	
 func _physics_process(_delta: float) -> void:
-	if ( is_instance_valid(player)):
-		if (state == "Walk"):
-			var direction_vector:Vector2 = _vector_to_target()
-			var collision = move_and_collide(direction_vector * speed * _delta)
-			if (collision):
-				if (collision.get_collider().name == "Player"):
-					player.kill_player()
-				kill_robot()
-	else:
-		idle_robot()
+	# Dead robots can't move or shoot
+	if (state != "Death"):
+		if ( is_instance_valid(player)):
+			# Get vector to the player, allowing for raycast to the walls.
+			var direction_vector:Vector2 =  _check_raycast(_vector_to_target())
+			if (direction_vector != Vector2.ZERO):
+				state = "Walk"
+				# Get a four-way word to match Robot sprite annimation names
+				_direction_vector_to_word(direction_vector, false)
+				var collision = move_and_collide(direction_vector * speed * _delta)
+				# If we walked into something we're dead. 
+				if (collision):
+					# So is the player if we walked into them
+					if (collision.get_collider().name == "Player"):
+						player.kill_player()
+					kill_robot()
+		#No player or no way to wlak, we are idle
+		else:
+			state = "Idle"
+			direction=""
 	# Play an animation based on the directions we built, 
 	# or if we are dead.
 	_set_sprite(str(state,direction))
 
 func _set_sprite(new_sprite:String) ->void:
 	if (new_sprite != current_sprite):
+		$"Label".text=new_sprite
+		sprite.play(new_sprite)
 		current_sprite = new_sprite
-		sprite.play(current_sprite)
 
 
-func _vector_to_target(is_8way:bool = false) -> Vector2:
-	var direction_h:String
-	var direction_v:String
+func _vector_to_target() -> Vector2:
 	var direction_vector:Vector2 = Vector2.ZERO
 	if (is_instance_valid(player)):
 		direction_vector = ( player.global_position - self.global_position).normalized()
 	# Lock direction to 8-bit 8-way positions
 	if (direction_vector != Vector2.ZERO):
 		direction_vector = direction_vector.snapped(Vector2(0.5,0.5)).normalized()
+	return(direction_vector)
+
+
+func _check_raycast(direction_vector: Vector2):
+	if (RayCastWest.is_colliding() or RayCastEast.is_colliding()):
+		direction_vector.x = 0
+	if (RayCastNorth.is_colliding() or RayCastSouth.is_colliding()):
+		direction_vector.y = 0
+	return(direction_vector)
+
+
+func _direction_vector_to_word(direction_vector: Vector2, is_8way:bool = false):
+	var direction_h:String
+	var direction_v:String
 	# Set the direction label
 	if (direction_vector.x<0):
-		if (RayCastWest.is_colliding()):
-			direction_vector.x = 0
-		else:
-			direction_h="Left"
+		direction_h="Left"
 	elif (direction_vector.x>0):
-		if (RayCastEast.is_colliding()):
-			direction_vector.x = 0
-		else:
-			direction_h="Right"
+		direction_h="Right"
 	if (direction_vector.y < 0):
-		if (RayCastNorth.is_colliding()):
-			direction_vector.y = 0
-		else:
-			direction_v="Up"
+		direction_v="Up"
 	elif (direction_vector.y > 0):
-		if (RayCastSouth.is_colliding()):
-			direction_vector.y = 0
-		else:
-			direction_v="Down"
+		direction_v="Down"
 	
+	# Handle difference between 8 and 4 way sprites
 	if is_8way:
 		direction = str(direction_v,direction_h)
 	else:
 		direction = direction_v if direction_v else direction_h
-	return(direction_vector)
+		
+	return(direction)
 
-func shoot(direction_vector: Vector2):
+
+func shoot(direction_vector: Vector2, direction_string: String):
 	# We can only shoot once, so skip if we are already shooting
-	if (is_shooting):
+	print(str("Count: ", laser_count, " max: ", laser_max))
+	if (laser_count  >= laser_max):
 		return
 	var laser:Area2D = Laser.instantiate()
 	laser.notify_spawner = Callable(self,"remove_laser")
 	laser.color = color
 	laser.speed = 300
-	laser.set_direction(direction_vector, direction)
-	# Set initial positoin to robot position,
+	laser.set_direction(direction_vector, direction_string)
+	# Set initial position to robot position,
 	# plus a bit along the shot path
 	laser.transform = self.global_transform
-	laser.position += (direction_vector * 30)
+	laser.position += (direction_vector * 50)
 	# Add to the parent, so it doesn't move with us.
 	owner.add_child(laser)
 	laser.active()
-	is_shooting = true
-	direction = ""
-	
+	laser_count +=1
+
+
 func remove_laser():
-	is_shooting = false
+	laser_count -=1
 
 
 func kill_robot() -> void:
 	# We're dead, we can't collide any more
 	set_collision_layer_value(1, false)
 	robot_died.emit()
-	walk_timer.stop()
+	shoot_timer.stop()
 	$DeathSound.play()
 	state = "Death"
 	direction = ""
-
-
-func idle_robot():
-	if (state != "Death"):
-		state="Idle"
-		direction=""
-		var v:Vector2 = _vector_to_target(true) #* Vector2(randf_range(-0.02,0.02),randf_range(-0.02,0.02) )
-		shoot(v.normalized() )
-
-
-func walk_robot():
-	if (state != "Death"):
-		state="Walk"
 
 
 # Disable robot by stopping processing
@@ -136,29 +139,26 @@ func walk_robot():
 func disable_robot():
 	process_mode=Node.PROCESS_MODE_DISABLED
 	set_collision_layer_value(1, false)
-	walk_timer.stop()
+	shoot_timer.stop()
 	position=Vector2i(-5000,-5000)
 
 func init_robot():
 	position=start_position
 	sprite.set_instance_shader_parameter("new_color", color)
 	state="Idle"
-	is_shooting = false
 	set_collision_layer_value(1, true)
 	process_mode=Node.PROCESS_MODE_INHERIT
-	walk_timer.start(randf_range(0.5,1.5))
-	process_mode=Node.PROCESS_MODE_INHERIT
+	shoot_timer.start(randf_range(2,4))
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	walk_timer.stop()
 	match state:
 		"Death":
+			shoot_timer.stop()
 			disable_robot()
-		"Walk":
-			idle_robot()
-			walk_timer.start(randf_range(0.5,1.5))
 
-	
 
-func _on_walk_timer_timeout() -> void:
-	walk_robot()
+func _on_shoot_timer_timeout() -> void:
+	var direction_vector = _vector_to_target()
+	var direction_string = _direction_vector_to_word(direction_vector, true)
+	shoot(direction_vector, direction_string)
+	shoot_timer.start(randf_range(1,2.5))

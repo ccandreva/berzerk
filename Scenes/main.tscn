@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cujpunrof3acu" path="res://Scripts/main.gd" id="1_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://d2h3377l4gviy" path="res://Scenes/player.tscn" id="2_spliy"]
 [ext_resource type="PackedScene" uid="uid://bsgfbhqt6cn4k" path="res://Scenes/robot.tscn" id="3_cuv0i"]
+[ext_resource type="Material" uid="uid://cubi7nn2tqmnq" path="res://Materials/scroller_material.tres" id="4_h1bgf"]
 [ext_resource type="PackedScene" uid="uid://dqc27mfxgppk" path="res://Scenes/evil_otto.tscn" id="5_kry3j"]
 [ext_resource type="Theme" uid="uid://cqr4swqrnbn6b" path="res://Assets/Themes/BerzerkTheme.tres" id="6_21xkr"]
 [ext_resource type="AudioStream" uid="uid://cu31sagmc41ia" path="res://Assets/Audio/GotTheIntruder.wav" id="7_6bp64"]
@@ -66,6 +67,7 @@ theme = ExtResource("6_21xkr")
 text = "☺"
 
 [node name="Playfield" parent="." unique_id=1826274616 instance=ExtResource("1_hx5sn")]
+material = ExtResource("4_h1bgf")
 
 [node name="Player" parent="." unique_id=146244608 instance=ExtResource("2_spliy")]
 position = Vector2(103, 407)

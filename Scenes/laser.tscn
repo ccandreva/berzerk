@@ -65,6 +65,7 @@ disabled = true
 
 [node name="SFX" type="AudioStreamPlayer2D" parent="." unique_id=1719318805]
 stream = SubResource("AudioStreamRandomizer_r1vd4")
+bus = &"Sounds"
 area_mask = 17
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

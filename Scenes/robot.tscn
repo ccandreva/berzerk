@@ -156,7 +156,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_edwai")
 }],
-"loop": false,
+"loop": true,
 "name": &"WalkDown",
 "speed": 5.0
 }, {
@@ -212,6 +212,7 @@ stream_0/stream = ExtResource("3_6phhs")
 [node name="Robot" type="CharacterBody2D" unique_id=1730101901 groups=["Robots"]]
 collision_layer = 9
 collision_mask = 3
+motion_mode = 1
 script = ExtResource("1_2vrla")
 Laser = ExtResource("2_dwnub")
 
@@ -219,7 +220,7 @@ Laser = ExtResource("2_dwnub")
 material = ExtResource("3_ntbue")
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_pva2i")
-animation = &"WalkUp"
+animation = &"WalkDown"
 autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=557679861]
@@ -227,26 +228,36 @@ position = Vector2(2, 8)
 shape = SubResource("CapsuleShape2D_dfm56")
 
 [node name="RayCastSouth" type="RayCast2D" parent="CollisionShape2D" unique_id=718353959]
+target_position = Vector2(0, 100)
 collision_mask = 2
 
 [node name="RayCastNorth" type="RayCast2D" parent="CollisionShape2D" unique_id=712127280]
 rotation = 3.1415927
+target_position = Vector2(0, 100)
 collision_mask = 2
 
 [node name="RayCastWest" type="RayCast2D" parent="CollisionShape2D" unique_id=2072325570]
 rotation = 1.5707964
+target_position = Vector2(0, 100)
 collision_mask = 2
 
 [node name="RayCastEast" type="RayCast2D" parent="CollisionShape2D" unique_id=708837435]
 rotation = -1.5707964
+target_position = Vector2(0, 100)
 collision_mask = 2
 
-[node name="WalkTimer" type="Timer" parent="." unique_id=79269910]
+[node name="ShootTimer" type="Timer" parent="." unique_id=79269910]
 one_shot = true
-autostart = true
 
-[node name="DeathSound" type="AudioStreamPlayer2D" parent="." unique_id=1634140592]
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="." unique_id=963457745]
 stream = SubResource("AudioStreamRandomizer_dwnub")
+bus = &"Sounds"
+
+[node name="Label" type="Label" parent="." unique_id=1111268935]
+offset_left = -21.0
+offset_top = -44.0
+offset_right = 19.0
+offset_bottom = -21.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="timeout" from="WalkTimer" to="." method="_on_walk_timer_timeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

@@ -26,12 +26,15 @@ var player_starts : Dictionary = {
 var level:int = 0
 var level_max = 1
 var level_colors : Array[Color] = [ Color(1,1,0), Color(1,0,0)]
+var level_speed : Array[int] = [5, 20]
+var level_laser_max : Array[int] = [0,1]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Listen to all exits
 	get_tree().call_group("Exits","connect", "exit_triggered", 
 		Callable(self,"_on_exit_triggered"))
+	
 	player.connect("player_died", Callable(self, "_on_player_died"))
 	robots_max = robots.get_child_count()
 	for i in robots_max:
@@ -56,6 +59,8 @@ func _update_lives() -> void:
 func _reset_characters():
 	for i in robots_max:
 		robot[i].color = level_colors[level]
+		robot[i].speed = level_speed[level]
+		robot[i].laser_max = level_laser_max[level]
 		robot[i].init_robot()
 	robots_live = robots_max
 	player.position = player_starts[last_exit]

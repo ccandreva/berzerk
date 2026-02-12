@@ -319,12 +319,14 @@ one_shot = true
 wait_time = 0.75
 one_shot = true
 
-[node name="DeathSound" type="AudioStreamPlayer" parent="." unique_id=1860851890]
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="." unique_id=1666221176]
 stream = ExtResource("4_vgqql")
 volume_db = -5.379
+bus = &"Sounds"
 
 [node name="GotTheIntruder" type="AudioStreamPlayer" parent="." unique_id=1664039411]
 stream = SubResource("AudioStreamRandomizer_x3wgy")
 volume_db = 1.149
+bus = &"Speech"
 
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
