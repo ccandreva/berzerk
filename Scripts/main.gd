@@ -1,11 +1,15 @@
 extends Node2D
 
-@onready var playfield:Node2D = get_node("Playfield")
-@onready var player:CharacterBody2D = get_node("Player")
-@onready var robots: Node = get_node("Robots")
-@onready var evil_otto:Node = get_node("EvilOtto")
+signal start_scroll(exit_name:String)
+
+@onready var playfield:Node2D = get_node("GameScreen/Playfield")
+@onready var player:CharacterBody2D = get_node("GameScreen/Player")
+@onready var robots: Node2D = get_node("GameScreen/Robots")
+@onready var evil_otto:Node = get_node("GameScreen/EvilOtto")
 @onready var label_score:Label = get_node("Score")
 @onready var label_lives:Label = get_node("Lives")
+@onready var GameScreen:Node2D = get_node("GameScreen")
+@onready var scroll_timer:Timer = get_node("ScrollTimer")
 
 var robot: Array[CharacterBody2D]
 var robots_max : int
@@ -15,12 +19,20 @@ var room_y:int = 0
 var last_exit:String = "ExitEast"
 var lives:int = 3
 var score:int = 0
+var state:String = "Playing"
 
 var player_starts : Dictionary = {
 	"ExitEast": Vector2i(103, 407),
 	"ExitWest": Vector2i(1000, 407),
 	"ExitSouth": Vector2i(535, 40),
 	"ExitNorth": Vector2i(535, 727),
+}
+
+var room_vectors : Dictionary[String, Vector2i] = {
+	"ExitWest": Vector2i(-1,0),
+	"ExitEast": Vector2i(1,0),
+	"ExitNorth": Vector2i(0,1),
+	"ExitSouth": Vector2i(0,-1)
 }
 
 var level:int = 0
@@ -36,12 +48,15 @@ func _ready() -> void:
 		Callable(self,"_on_exit_triggered"))
 	
 	player.connect("player_died", Callable(self, "_on_player_died"))
+	GameScreen.connect("scroll_finished", Callable(self,"_on_gamescreen_scroll_finished"))
+	self.connect("start_scroll", Callable(self,"_start_scroll"))
 	robots_max = robots.get_child_count()
 	for i in robots_max:
 		robot.append(robots.get_child(i))
 		robot[i].connect("robot_died", Callable(self,"_on_robot_died"))
 	_reset_characters()
 	_start_level()
+	print ( Vector2(0,-1) * Vector2(10,20))
 
 
 func _start_level() -> void:
@@ -63,15 +78,17 @@ func _reset_characters():
 		robot[i].laser_max = level_laser_max[level]
 		robot[i].init_robot()
 	robots_live = robots_max
-	player.position = player_starts[last_exit]
+	player.init_player(player_starts[last_exit])
 	evil_otto.color = level_colors[level]
+	evil_otto.speed = level_speed[level]
 	evil_otto.init_otto()
 
 
 func _end_level() -> void:
+	player.pause_player()
 	for i in robots_max:
-		robot[i].disable_robot()
-	evil_otto.disable_otto()
+		robot[i].pause_robot()
+	evil_otto.pause_otto()
 	level +=1
 	if (level > level_max):
 		level = 0
@@ -98,19 +115,37 @@ func _on_robot_died() -> void:
 
 
 func _on_exit_triggered(exit_name: String) ->void:
-	if (robots_live > 0):
+	print("Exited through ", exit_name)
+	if (state == "Scrolling"):
+		print("Already scrolling, returning.")
+	else:
+		start_scroll.emit(exit_name)
+#		_start_scroll(exit_name)
+
+func _start_scroll(exit_name:String) -> void:
+	state = "Scrolling"
+	if (robots_live == 0):
+		$Insults.play()
+	else:
 		$Chicken.play()
 	last_exit = exit_name
-	match exit_name:
-		"ExitWest":
-			room_x = room_x - 1
-		"ExitEast":
-			room_x = room_x + 1
-		"ExitSouth":
-			room_y = room_y - 1
-		"ExitNorth":
-			room_y = room_y + 1
-	room_x = room_x & 0xff
-	room_y = room_y & 0xff
+	var room_vector:Vector2i = room_vectors[exit_name]
+	room_x = (room_x + room_vector.x) & 0xff
+	room_y = (room_y + room_vector.y) & 0xff
+	
 	_end_level()
+	print("After end_level call")
+	GameScreen.set_scrolling(room_vector)
+
+func _on_gamescreen_scroll_finished():
+	print("Done scrolling, moving Gamescreen.")
+	GameScreen.position = Vector2.ZERO
+	print("Starting level")
 	_start_level()
+	print("Started, starting timer2.")
+	scroll_timer.start(0.1)
+	print("waiting for timer.")
+	await scroll_timer.timeout
+	print("Done waiting. Setting state.")
+	state = "Playing"
+	print("State set")

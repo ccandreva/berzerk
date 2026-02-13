@@ -1,7 +1,5 @@
 extends Area2D
 
-signal laser_fired
-
 var sprite_node:Sprite2D
 var collision_node:CollisionShape2D
 @onready var sfx_node :AudioStreamPlayer2D = get_node("SFX")
@@ -15,7 +13,7 @@ var deg90:float= PI/2
 
 func _ready() -> void:
 	sfx_node.play()
-	
+
 
 func _physics_process(_delta: float) -> void:
 	if (state == "Active"):

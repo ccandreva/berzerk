@@ -5,7 +5,7 @@ signal robot_died
 @export var Laser : PackedScene
 
 # Get node instances we will need
-@onready var player: CharacterBody2D = get_node("/root/Main/Player")
+@onready var player: CharacterBody2D = get_node("/root/Main/GameScreen/Player")
 @onready var shoot_timer: Timer = get_node("./ShootTimer")
 @onready var RayCastNorth : RayCast2D = get_node("./CollisionShape2D/RayCastNorth")
 @onready var RayCastSouth : RayCast2D = get_node("./CollisionShape2D/RayCastSouth")
@@ -30,7 +30,7 @@ func _ready() -> void:
 	
 func _physics_process(_delta: float) -> void:
 	# Dead robots can't move or shoot
-	if (state != "Death"):
+	if (state != "Death" and state != "Paused"):
 		if ( is_instance_valid(player)):
 			# Get vector to the player, allowing for raycast to the walls.
 			var direction_vector:Vector2 =  _check_raycast(_vector_to_target())
@@ -64,7 +64,7 @@ func _set_sprite(new_sprite:String) ->void:
 func _vector_to_target() -> Vector2:
 	var direction_vector:Vector2 = Vector2.ZERO
 	if (is_instance_valid(player)):
-		direction_vector = ( player.global_position - self.global_position).normalized()
+		direction_vector = ( player.position - self.position).normalized()
 	# Lock direction to 8-bit 8-way positions
 	if (direction_vector != Vector2.ZERO):
 		direction_vector = direction_vector.snapped(Vector2(0.5,0.5)).normalized()
@@ -138,6 +138,9 @@ func kill_robot() -> void:
 	state = "Death"
 	direction = ""
 
+
+func pause_robot():
+	self.set_process_mode(Node.PROCESS_MODE_DISABLED)
 
 # Disable robot by stopping processing
 # And movving off the playing field

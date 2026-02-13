@@ -27,3 +27,6 @@ func _set_arms(state:bool):
 		
 func berzerk_calc(bz_seed: int) -> int:
 	return ((bz_seed * 7) + 0x3153) & 0xffff
+
+func get_max() -> Vector2:
+	return (get_node("SouthEastCorner").position)

@@ -156,12 +156,12 @@ position = Vector2(1055, 394)
 rotation = 3.1415927
 
 [node name="ExitNorth" parent="Exits" unique_id=2018892784 instance=ExtResource("6_r25s6")]
-position = Vector2(529, -4)
+position = Vector2(541, 6)
 rotation = 1.5707964
 
 [node name="ExitSouth" parent="Exits" unique_id=490309431 instance=ExtResource("6_r25s6")]
-position = Vector2(529, 808)
+position = Vector2(530, 800)
 rotation = 1.5707964
 
-[node name="Node2D2" type="Node2D" parent="." unique_id=332581060]
+[node name="SouthEastCorner" type="Node2D" parent="." unique_id=332581060]
 position = Vector2(1055, 784)

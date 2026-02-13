@@ -102,6 +102,13 @@ func shoot(direction_vector: Vector2):
 func remove_laser():
 	laser_count -= 1
 
+func pause_player():
+	process_mode=Node.PROCESS_MODE_DISABLED
+
+func init_player(start_position:Vector2) -> void:
+	position = start_position
+	process_mode=Node.PROCESS_MODE_INHERIT
+	
 
 func kill_player(killer:CollisionObject2D) -> void:
 	# You only die once, even if they shoot you again.

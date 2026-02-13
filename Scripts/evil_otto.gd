@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # Get node instances we will need
-@onready var player: CharacterBody2D = get_node("/root/Main/Player")
+@onready var player: CharacterBody2D = get_node("/root/Main/GameScreen/Player")
 @onready var timer_otto_spawn : Timer = get_node("TimerOttoSpawn")
 
 # Otto's speed
@@ -36,10 +36,14 @@ func _physics_process(_delta: float) -> void:
 			velocity=direction_vector * speed
 			move_and_slide()
 
+func pause_otto():
+	process_mode=Node.PROCESS_MODE_DISABLED
+
 # Disable otto by stopping processing
 # And moving off the playing field
 func disable_otto():
-	sprite.disconnect("frame_changed", Callable(self, "_on_frame_changed"))
+	if (state == "Bounce"):
+		sprite.disconnect("frame_changed", Callable(self, "_on_frame_changed"))
 	process_mode=Node.PROCESS_MODE_DISABLED
 	position=Vector2i(-5000,-5000)
 
