@@ -2,7 +2,14 @@
 
 [ext_resource type="FontFile" uid="uid://or0kj8gff00i" path="res://Assets/Fonts/Berzerk-font.fnt" id="1_hiev6"]
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_hiev6"]
+color = Color(1, 1, 1, 1)
+thickness = 6
+
 [resource]
+Button/fonts/font = ExtResource("1_hiev6")
+HSeparator/constants/separation = 10
+HSeparator/styles/separator = SubResource("StyleBoxLine_hiev6")
 Label/colors/font_color = Color(0, 1, 0, 1)
 Label/font_sizes/font_size = 30
 Label/fonts/font = ExtResource("1_hiev6")

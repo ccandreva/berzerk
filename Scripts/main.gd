@@ -54,10 +54,9 @@ func _ready() -> void:
 	for i in robots_max:
 		robot.append(robots.get_child(i))
 		robot[i].connect("robot_died", Callable(self,"_on_robot_died"))
-	_reset_characters()
+	#_reset_characters()
 	_start_level()
-	print ( Vector2(0,-1) * Vector2(10,20))
-
+	
 
 func _start_level() -> void:
 	playfield.build(room_x,room_y)

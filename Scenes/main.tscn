@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://cmutyrhwdpf2f" path="res://Assets/Audio/ChargeIt.wav" id="8_fdnlq"]
 [ext_resource type="AudioStream" uid="uid://coc0a5nsr4i6m" path="res://Assets/Audio/Chicken.wav" id="8_jkdf5"]
 [ext_resource type="AudioStream" uid="uid://b1gkt63juston" path="res://Assets/Audio/ChargeTheIntruder.wav" id="9_jkdf5"]
+[ext_resource type="Script" uid="uid://cc12c0xyu2dyc" path="res://Scripts/menu.gd" id="9_k12tt"]
 [ext_resource type="AudioStream" uid="uid://dak6380tmtcps" path="res://Assets/Audio/GetTheHumanoid.wav" id="10_wsu2k"]
 [ext_resource type="AudioStream" uid="uid://5bd5ugtpjeen" path="res://Assets/Audio/GetTheIntruder.wav" id="11_k12tt"]
 [ext_resource type="AudioStream" uid="uid://dsmd667bfhby1" path="res://Assets/Audio/ChargeTheHumanoid.wav" id="12_h1bgf"]
@@ -75,7 +76,6 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 theme = ExtResource("6_21xkr")
 text = "0"
-metadata/_edit_lock_ = true
 
 [node name="Lives" type="Label" parent="." unique_id=609253257]
 anchors_preset = 12
@@ -93,32 +93,71 @@ size_flags_vertical = 8
 theme = ExtResource("6_21xkr")
 text = "☺"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=752747058]
+[node name="UI" type="CanvasLayer" parent="." unique_id=752747058]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=980266760]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -50.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="Header" type="VBoxContainer" parent="UI" unique_id=980266760]
+offset_right = 1056.0
+offset_bottom = 208.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=2133228430]
-visible = false
+[node name="Title" type="Label" parent="UI/Header" unique_id=2133228430]
 layout_mode = 2
 theme = ExtResource("6_21xkr")
-text = "Hello, World"
+theme_override_colors/font_color = Color(0, 0.70980394, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Berzerk"
+horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=693277556]
-visible = false
+[node name="HSeparator" type="HSeparator" parent="UI/Header" unique_id=746669600]
 layout_mode = 2
 theme = ExtResource("6_21xkr")
-text = "How are you today "
+
+[node name="Menu" type="VBoxContainer" parent="UI" unique_id=268364882]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -21.5
+offset_right = 20.0
+offset_bottom = 21.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_k12tt")
+
+[node name="Play" type="Button" parent="UI/Menu" unique_id=498182392]
+layout_mode = 2
+theme = ExtResource("6_21xkr")
+text = "Start Game"
+
+[node name="Exit" type="Button" parent="UI/Menu" unique_id=2001673575]
+layout_mode = 2
+theme = ExtResource("6_21xkr")
+text = "Exit"
+
+[node name="Footer" type="VBoxContainer" parent="UI" unique_id=1500593023]
+offset_top = 728.0
+offset_right = 1056.0
+offset_bottom = 792.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HSeparator2" type="HSeparator" parent="UI/Footer" unique_id=627958155]
+layout_mode = 2
+theme = ExtResource("6_21xkr")
+
+[node name="Copyright" type="Label" parent="UI/Footer" unique_id=286187544]
+layout_mode = 2
+theme = ExtResource("6_21xkr")
+text = "©1980 STERN Electronics, Inc."
+horizontal_alignment = 1
+
+[node name="HSeparator3" type="HSeparator" parent="UI/Footer" unique_id=333575559]
+layout_mode = 2
+size_flags_vertical = 8
+theme = ExtResource("6_21xkr")
 
 [node name="Chicken" type="AudioStreamPlayer" parent="." unique_id=756400098]
 stream = SubResource("AudioStreamRandomizer_344ge")
@@ -130,5 +169,8 @@ stream = SubResource("AudioStreamRandomizer_fevyy")
 one_shot = true
 
 [node name="ScrollTimer" type="Timer" parent="." unique_id=1729663147]
-wait_time = 0.009999999999999998
+wait_time = 0.00999999999999999
 one_shot = true
+
+[connection signal="pressed" from="UI/Menu/Play" to="UI/Menu" method="_on_play_pressed"]
+[connection signal="pressed" from="UI/Menu/Exit" to="UI/Menu" method="_on_exit_pressed"]
