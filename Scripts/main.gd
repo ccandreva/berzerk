@@ -77,9 +77,9 @@ func _show_menu():
 
 
 func _start_level() -> void:
-	playfield.build(room_x,room_y)
 	_update_lives()
 	_reset_characters()
+	playfield.build(room_x,room_y)
 
 func _update_lives() -> void:
 	var display_lives:String = ''
@@ -88,6 +88,9 @@ func _update_lives() -> void:
 	label_lives.text = display_lives
 
 func _reset_characters():
+	print ("Move player to :",player_starts[last_exit])
+	player.init_player(player_starts[last_exit])
+	print("Player moved")
 	# Remove any shots currently in the air
 	get_tree().call_group("Shots","remove_laser")
 	for i in robots_max:
@@ -96,7 +99,6 @@ func _reset_characters():
 		robot[i].laser_max = level_laser_max[level]
 		robot[i].init_robot()
 	robots_live = robots_max
-	player.init_player(player_starts[last_exit])
 	evil_otto.color = level_colors[level]
 	evil_otto.speed = level_speed[level]
 	evil_otto.init_otto()
@@ -130,12 +132,13 @@ func _on_robot_died() -> void:
 
 
 func _on_exit_triggered(exit_name: String) ->void:
+	# Disable exits to prevent double triggering
+	get_tree().call_group("Exits","disable")
 	print("Exited through ", exit_name)
 	if (state == "Scrolling"):
 		print("Already scrolling, returning.")
 	else:
 		start_scroll.emit(exit_name)
-#		_start_scroll(exit_name)
 
 func _start_scroll(exit_name:String) -> void:
 	state = "Scrolling"
@@ -150,14 +153,15 @@ func _start_scroll(exit_name:String) -> void:
 	
 	_next_level()
 	GameScreen.set_scrolling(room_vector)
+	#_on_gamescreen_scroll_finished()
 
 func _on_gamescreen_scroll_finished():
-	print("Done scrolling, Starting level")
 	_start_level()
-	print("Started, starting timer.")
-	scroll_timer.start(0.1)
-	print("waiting for timer.")
-	await scroll_timer.timeout
-	print("Done waiting. Setting state.")
+#	scroll_timer.start(0.1)
+#	print("waiting for timer.")
+#	await scroll_timer.timeout
+#	print("Done waiting. Setting state.")
+#	print("State set")
+	# Last, re-enable all exits
+	get_tree().call_group("Exits","enable")
 	state = "Playing"
-	print("State set")

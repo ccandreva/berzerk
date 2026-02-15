@@ -108,7 +108,7 @@ func pause_player():
 
 func init_player(start_position:Vector2) -> void:
 	position = start_position
-	process_mode=Node.PROCESS_MODE_INHERIT
+	#process_mode=Node.PROCESS_MODE_INHERIT
 	
 
 func kill_player(killer:Node2D) -> void:

@@ -104,9 +104,9 @@ func _direction_vector_to_word(direction_vector: Vector2, is_8way:bool = false):
 func shoot(direction_vector: Vector2, direction_string: String):
 	# We can only shoot once, so skip if we are already shooting
 	if (laser_count  >= laser_max):
-		print(str("Shot count: ", laser_count, " max: ", laser_max, ", Exiting"))
+	#	print(str("Shot count: ", laser_count, " max: ", laser_max, ", Exiting"))
 		return
-	print(str("Shot count: ", laser_count, " max: ", laser_max, ", Firing"))
+	#print(str("Shot count: ", laser_count, " max: ", laser_max, ", Firing"))
 	laser_count +=1
 	var laser:Area2D = Laser.instantiate()
 	laser.notify_spawner = Callable(self,"remove_laser")
