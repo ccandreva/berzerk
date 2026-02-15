@@ -1,8 +1,9 @@
 extends Area2D
 
+@onready var sfx_node :AudioStreamPlayer2D = get_node("SFX")
+
 var sprite_node:Sprite2D
 var collision_node:CollisionShape2D
-@onready var sfx_node :AudioStreamPlayer2D = get_node("SFX")
 var speed = 700 
 var notify_spawner : Callable
 var direction_vector: Vector2 
@@ -13,6 +14,7 @@ var deg90:float= PI/2
 
 func _ready() -> void:
 	sfx_node.play()
+	add_to_group("Shots")
 
 
 func _physics_process(_delta: float) -> void:
@@ -48,6 +50,7 @@ func active() -> void:
 func remove_laser() -> void:
 	# If the callable has been set, call it to remove the laser count
 	# From whatever spawned this shot
+	print("Remove laser")
 	if (state == "Inactive"):
 		return
 	state = "Inactive"
@@ -65,6 +68,7 @@ func remove_laser() -> void:
 	queue_free()
 	
 func _on_body_entered(body: Node2D) -> void:
+	print("On Body Entered")
 	# Kill whatever we hit
 	if body.is_in_group("Robots"):
 		body.kill_robot()

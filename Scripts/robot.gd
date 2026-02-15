@@ -5,13 +5,13 @@ signal robot_died
 @export var Laser : PackedScene
 
 # Get node instances we will need
-@onready var player: CharacterBody2D = get_node("/root/Main/GameScreen/Player")
+var player: CharacterBody2D
 @onready var shoot_timer: Timer = get_node("./ShootTimer")
 @onready var RayCastNorth : RayCast2D = get_node("./CollisionShape2D/RayCastNorth")
 @onready var RayCastSouth : RayCast2D = get_node("./CollisionShape2D/RayCastSouth")
 @onready var RayCastEast : RayCast2D = get_node("./CollisionShape2D/RayCastEast")
 @onready var RayCastWest : RayCast2D = get_node("./CollisionShape2D/RayCastWest")
-
+@onready var parent :Node2D = get_parent()
 # Robot speed
 @export var speed:int = 20
 @onready var sprite:AnimatedSprite2D = get_node("AnimatedSprite2D")
@@ -118,7 +118,7 @@ func shoot(direction_vector: Vector2, direction_string: String):
 	laser.transform = self.global_transform
 	laser.position += (direction_vector * 50)
 	# Add to the parent, so it doesn't move with us.
-	owner.add_child(laser)
+	parent.add_child(laser)
 	laser.active()
 
 

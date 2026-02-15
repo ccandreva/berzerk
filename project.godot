@@ -35,6 +35,7 @@ window/size/window_height_override=880
 Players="Player Objects"
 Robots=""
 Exits=""
+Shots="Shots to be deleted between scenes."
 
 [input]
 

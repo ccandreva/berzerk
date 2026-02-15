@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # Get node instances we will need
-@onready var player: CharacterBody2D = get_node("/root/Main/GameScreen/Player")
+var player: CharacterBody2D
 @onready var timer_otto_spawn : Timer = get_node("TimerOttoSpawn")
 
 # Otto's speed

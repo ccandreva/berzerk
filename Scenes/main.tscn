@@ -36,29 +36,31 @@ stream_5/stream = ExtResource("13_b3802")
 script = ExtResource("1_jjvhh")
 
 [node name="GameScreen" type="Node2D" parent="." unique_id=1415460437]
+visible = false
 script = ExtResource("2_wsu2k")
 
 [node name="Playfield" parent="GameScreen" unique_id=1826274616 instance=ExtResource("1_hx5sn")]
+process_mode = 1
 material = ExtResource("4_h1bgf")
 
-[node name="Player" parent="GameScreen" unique_id=146244608 instance=ExtResource("2_spliy")]
+[node name="Player" parent="GameScreen/Playfield" unique_id=146244608 instance=ExtResource("2_spliy")]
 position = Vector2(103, 407)
 
-[node name="Robots" type="Node2D" parent="GameScreen" unique_id=612970537]
+[node name="Robots" type="Node2D" parent="GameScreen/Playfield" unique_id=612970537]
 
-[node name="Robot-01" parent="GameScreen/Robots" unique_id=1730101901 instance=ExtResource("3_cuv0i")]
+[node name="Robot-01" parent="GameScreen/Playfield/Robots" unique_id=1730101901 instance=ExtResource("3_cuv0i")]
 position = Vector2(352, 96)
 
-[node name="Robot-02" parent="GameScreen/Robots" unique_id=70304362 instance=ExtResource("3_cuv0i")]
+[node name="Robot-02" parent="GameScreen/Playfield/Robots" unique_id=70304362 instance=ExtResource("3_cuv0i")]
 position = Vector2(736, 656)
 
-[node name="Robot-03" parent="GameScreen/Robots" unique_id=2039488583 instance=ExtResource("3_cuv0i")]
+[node name="Robot-03" parent="GameScreen/Playfield/Robots" unique_id=2039488583 instance=ExtResource("3_cuv0i")]
 position = Vector2(920, 88)
 
-[node name="Robot-04" parent="GameScreen/Robots" unique_id=1055450310 instance=ExtResource("3_cuv0i")]
+[node name="Robot-04" parent="GameScreen/Playfield/Robots" unique_id=1055450310 instance=ExtResource("3_cuv0i")]
 position = Vector2(504, 616)
 
-[node name="EvilOtto" parent="GameScreen" unique_id=1787455862 instance=ExtResource("5_kry3j")]
+[node name="EvilOtto" parent="GameScreen/Playfield" unique_id=1787455862 instance=ExtResource("5_kry3j")]
 position = Vector2(56, 424)
 
 [node name="Score" type="Label" parent="." unique_id=1581619242]
@@ -91,9 +93,10 @@ grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 8
 theme = ExtResource("6_21xkr")
-text = "☺"
+text = "☺☺"
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=752747058]
+process_mode = 2
 
 [node name="Header" type="VBoxContainer" parent="UI" unique_id=980266760]
 offset_right = 1056.0
@@ -112,30 +115,6 @@ horizontal_alignment = 1
 [node name="HSeparator" type="HSeparator" parent="UI/Header" unique_id=746669600]
 layout_mode = 2
 theme = ExtResource("6_21xkr")
-
-[node name="Menu" type="VBoxContainer" parent="UI" unique_id=268364882]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -21.5
-offset_right = 20.0
-offset_bottom = 21.5
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("9_k12tt")
-
-[node name="Play" type="Button" parent="UI/Menu" unique_id=498182392]
-layout_mode = 2
-theme = ExtResource("6_21xkr")
-text = "Start Game"
-
-[node name="Exit" type="Button" parent="UI/Menu" unique_id=2001673575]
-layout_mode = 2
-theme = ExtResource("6_21xkr")
-text = "Exit"
 
 [node name="Footer" type="VBoxContainer" parent="UI" unique_id=1500593023]
 offset_top = 728.0
@@ -159,6 +138,32 @@ layout_mode = 2
 size_flags_vertical = 8
 theme = ExtResource("6_21xkr")
 
+[node name="Menu" type="VBoxContainer" parent="UI" unique_id=268364882]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -21.5
+offset_right = 20.0
+offset_bottom = 21.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_k12tt")
+
+[node name="Play" type="Button" parent="UI/Menu" unique_id=498182392]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Exit")
+theme = ExtResource("6_21xkr")
+text = "Start Game"
+
+[node name="Exit" type="Button" parent="UI/Menu" unique_id=2001673575]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Play")
+theme = ExtResource("6_21xkr")
+text = "Exit"
+
 [node name="Chicken" type="AudioStreamPlayer" parent="." unique_id=756400098]
 stream = SubResource("AudioStreamRandomizer_344ge")
 
@@ -169,7 +174,7 @@ stream = SubResource("AudioStreamRandomizer_fevyy")
 one_shot = true
 
 [node name="ScrollTimer" type="Timer" parent="." unique_id=1729663147]
-wait_time = 0.00999999999999999
+wait_time = 0.05
 one_shot = true
 
 [connection signal="pressed" from="UI/Menu/Play" to="UI/Menu" method="_on_play_pressed"]

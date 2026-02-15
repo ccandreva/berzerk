@@ -2,16 +2,17 @@ extends CharacterBody2D
 
 signal player_died
 
+@onready var sprite:AnimatedSprite2D = get_node("AnimatedSprite2D")
+@onready var death_timer: Timer = get_node("DeathTimer")
+@onready var shot_timer: Timer = get_node("ShotTimer")
+@onready var parent :Node2D = get_parent()
+
 @export var Laser : PackedScene
 # Player speed
 @export var speed:int = 150
 @export var laser_max: int = 2
 
 var laser_count:int = 0;
-
-@onready var sprite:AnimatedSprite2D = get_node("AnimatedSprite2D")
-@onready var death_timer: Timer = get_node("DeathTimer")
-@onready var shot_timer: Timer = get_node("ShotTimer")
 
 var direction:String=""
 # States: Idle, Walk, Shoot, Death
@@ -28,7 +29,7 @@ func _physics_process(_delta: float) -> void:
 	if (state == "Walk"):
 		var collision = move_and_collide(input_vector * speed * _delta)
 		if (collision):
-			var collider:CollisionObject2D = collision.get_collider()
+			var collider:Node2D = collision.get_collider()
 			if (collider.is_in_group("Exits")):
 				print("Hit Exit!")
 			kill_player(collider)
@@ -93,7 +94,7 @@ func shoot(direction_vector: Vector2):
 	laser.set_direction(direction_vector, direction)
 	laser.position = muzzle.global_position
 	# Add to the parent, so it doesn't move with us.
-	owner.add_child(laser)
+	parent.add_child(laser)
 	laser.active()
 	laser_count += 1;
 	shot_timer.start()
@@ -110,7 +111,7 @@ func init_player(start_position:Vector2) -> void:
 	process_mode=Node.PROCESS_MODE_INHERIT
 	
 
-func kill_player(killer:CollisionObject2D) -> void:
+func kill_player(killer:Node2D) -> void:
 	# You only die once, even if they shoot you again.
 	print("Player killed by: ", killer)
 	if state != "Death":
