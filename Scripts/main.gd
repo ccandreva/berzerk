@@ -152,8 +152,8 @@ func _start_scroll(exit_name:String) -> void:
 	room_y = (room_y + room_vector.y) & 0xff
 	
 	_next_level()
-	GameScreen.set_scrolling(room_vector)
-	#_on_gamescreen_scroll_finished()
+	#GameScreen.set_scrolling(room_vector)
+	_on_gamescreen_scroll_finished()
 
 func _on_gamescreen_scroll_finished():
 	_start_level()
