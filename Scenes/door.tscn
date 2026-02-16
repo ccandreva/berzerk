@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://e4u1wb23kbgs"]
 
+[ext_resource type="Script" uid="uid://b4efsao1dn6i6" path="res://Scripts/door.gd" id="1_p0e35"]
 [ext_resource type="Texture2D" uid="uid://yrb6clmh6u3x" path="res://Assets/Art/Door-Vertical.png" id="1_w6aom"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0e35"]
@@ -8,8 +9,9 @@ size = Vector2(2, 64)
 [node name="Door" type="StaticBody2D" unique_id=3679713]
 z_index = -1
 scale = Vector2(4, 4)
-collision_layer = 0
+collision_layer = 2
 collision_mask = 0
+script = ExtResource("1_p0e35")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1268669977]
 visible = false
@@ -17,3 +19,4 @@ texture = ExtResource("1_w6aom")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1873135227]
 shape = SubResource("RectangleShape2D_p0e35")
+disabled = true
