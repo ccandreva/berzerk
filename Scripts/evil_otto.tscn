@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://gw883uru0kgc" path="res://Assets/Art/Otto-bounce.png" id="1_yw4ir"]
 [ext_resource type="Material" uid="uid://786upk8rbxya" path="res://Materials/SetColor.tres" id="2_f5oq8"]
 [ext_resource type="Texture2D" uid="uid://bocwsj8kkahip" path="res://Assets/Art/Otto-full.png" id="2_yw4ir"]
+[ext_resource type="AudioStream" uid="uid://dy7ooc5du87g7" path="res://Assets/Audio/IntruderAlert.wav" id="5_xqfkb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rdk81"]
 size = Vector2(8, 40)
@@ -148,6 +149,11 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_f5oq8"]
 radius = 4.0
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5wiaa"]
+random_pitch = 1.0644932
+streams_count = 1
+stream_0/stream = ExtResource("5_xqfkb")
+
 [node name="EvilOtto" type="CharacterBody2D" unique_id=1787455862]
 scale = Vector2(4, 4)
 collision_layer = 0
@@ -178,3 +184,6 @@ shape = SubResource("CircleShape2D_f5oq8")
 process_mode = 3
 wait_time = 10.0
 one_shot = true
+
+[node name="IntruderAlert" type="AudioStreamPlayer" parent="." unique_id=1931474571]
+stream = SubResource("AudioStreamRandomizer_5wiaa")

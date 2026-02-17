@@ -8,6 +8,7 @@
 [ext_resource type="Material" uid="uid://cubi7nn2tqmnq" path="res://Materials/scroller_material.tres" id="4_h1bgf"]
 [ext_resource type="PackedScene" uid="uid://dqc27mfxgppk" path="res://Scripts/evil_otto.tscn" id="5_kry3j"]
 [ext_resource type="Theme" uid="uid://cqr4swqrnbn6b" path="res://Assets/Themes/BerzerkTheme.tres" id="6_21xkr"]
+[ext_resource type="Script" uid="uid://2mlmgc722gw" path="res://Scripts/robots.gd" id="6_h1bgf"]
 [ext_resource type="AudioStream" uid="uid://cmutyrhwdpf2f" path="res://Assets/Audio/ChargeIt.wav" id="8_fdnlq"]
 [ext_resource type="AudioStream" uid="uid://coc0a5nsr4i6m" path="res://Assets/Audio/Chicken.wav" id="8_jkdf5"]
 [ext_resource type="AudioStream" uid="uid://b1gkt63juston" path="res://Assets/Audio/ChargeTheIntruder.wav" id="9_jkdf5"]
@@ -47,6 +48,7 @@ material = ExtResource("4_h1bgf")
 position = Vector2(103, 407)
 
 [node name="Robots" type="Node2D" parent="GameScreen/Playfield" unique_id=612970537]
+script = ExtResource("6_h1bgf")
 
 [node name="Robot-01" parent="GameScreen/Playfield/Robots" unique_id=1730101901 instance=ExtResource("3_cuv0i")]
 position = Vector2(352, 96)

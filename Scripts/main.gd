@@ -14,9 +14,6 @@ signal start_scroll(exit_name:String)
 @onready var scroll_timer:Timer = get_node("ScrollTimer")
 @onready var menu:BoxContainer = $UI/Menu
 
-var robot: Array[CharacterBody2D]
-var robots_max : int
-var robots_live: int
 var room_x:int = 0
 var room_y:int = 0
 var lives:int = 3
@@ -49,9 +46,11 @@ var exits : Dictionary[String, Dictionary] = {
 
 var level:int = 0
 var level_max:int
-var level_colors : Array[Color] = [ Color(1,1,0), Color(1,0,0), Color(0,0,1)]
-var level_speed : Array[int] = [5, 20, 25]
-var level_laser_max : Array[int] = [0,1, 2]
+var level_data : Array[Dictionary] = [
+	{"color": Color(1,1,0), "speed": 5, "laser_max": 0},
+	{"color": Color(1,0,0), "speed": 20, "laser_max": 1},
+	{"color": Color(0,0,1), "speed": 25, "laser_max": 2},
+]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -62,17 +61,15 @@ func _ready() -> void:
 	
 	menu.connect("menu_play", Callable(self,"_on_menu_play"))
 	player.connect("player_died", Callable(self, "_on_player_died"))
+	robots.connect("robot_count_changed", Callable(self,"_on_robot_count_changed"))
 	GameScreen.connect("scroll_finished", Callable(self,"_on_gamescreen_scroll_finished"))
 	self.connect("start_scroll", Callable(self,"_start_scroll"))
-	robots_max = robots.get_child_count()
 	# Set level_max from array size. 
-	level_max = level_speed.size() - 1
-	for i in robots_max:
-		robot.append(robots.get_child(i))
-		robot[i].connect("robot_died", Callable(self,"_on_robot_died"))
-		robot[i].player = player
+	level_max = level_data.size() - 1
+	robots.initialize(player)
 	evil_otto.player = player
 	get_tree().paused = true
+
 
 func _on_menu_play():
 	lives = 3
@@ -90,7 +87,6 @@ func _show_menu():
 
 func _start_level(entrance:String = "") -> void:
 	playfield.build(room_x, room_y, entrance)
-	
 	_update_lives()
 	_reset_characters()
 
@@ -106,16 +102,8 @@ func _reset_characters():
 	player.init_player(exits[last_exit]["player_start"])
 	# Remove any shots currently in the air
 	get_tree().call_group("Shots","remove_laser")
-	for i in robots_max:
-		robot[i].color = level_colors[level]
-		robot[i].speed = level_speed[level]
-		robot[i].laser_max = level_laser_max[level]
-		robot[i].init_robot()
-	robots_live = robots_max
-	evil_otto.color = level_colors[level]
-	evil_otto.speed = level_speed[level]
-	evil_otto.start_position = exits[last_exit]["player_start"]
-	evil_otto.init_otto()
+	robots.reset(level_data[level])
+	evil_otto.init_otto(level_data[level], exits[last_exit]["player_start"])
 
 
 func _next_level() -> void:
@@ -134,18 +122,15 @@ func _on_player_died() -> void:
 		_show_menu()
 
 
-func _on_robot_died() -> void:
-	if robots_live>0:
-		score += 50
-		robots_live -= 1
-		if (robots_live == 0):
-			var bonus = (10 * robots_max)
-			score += bonus
-			label_bonus.text = str("BONUS ", bonus)
-		label_score.text = str(score)
-		print(str("robots_live = ",robots_live))
-	else:
-		print(str("Robot died when robots_live = ",robots_live))
+func _on_robot_count_changed(is_count_zero:bool) -> void:
+	# 50 points per robot
+	score += 50
+	# If all robots are dead, add a bonus
+	if (is_count_zero == true):
+		var bonus = (10 * robots.robots_max)
+		score += bonus
+		label_bonus.text = str("BONUS ", bonus)
+	label_score.text = str(score)
 
 
 func _on_exit_triggered(exit_name: String) ->void:
@@ -158,7 +143,7 @@ func _on_exit_triggered(exit_name: String) ->void:
 
 func _start_scroll(exit_name:String) -> void:
 	state = "Scrolling"
-	if (robots_live == 0):
+	if (robots.robots_live == 0):
 		$Insults.play()
 	else:
 		$Chicken.play()

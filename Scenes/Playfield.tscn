@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://cq65w45pv1afg" path="res://Scripts/Playfield.gd" id="1_llwvk"]
 [ext_resource type="Texture2D" uid="uid://b32mralmfrkfq" path="res://Assets/Art/Background.png" id="3_fkjvs"]
 [ext_resource type="PackedScene" uid="uid://betb3qguxdwkr" path="res://Scenes/pillar.tscn" id="4_4wil0"]
-[ext_resource type="AudioStream" uid="uid://b2bjrihqk3njr" path="res://Assets/Audio/Intruder_Alert.wav" id="4_16gb4"]
 [ext_resource type="PackedScene" uid="uid://e4u1wb23kbgs" path="res://Scenes/door.tscn" id="5_hvdpt"]
 [ext_resource type="PackedScene" uid="uid://6s33arayhnw3" path="res://Scenes/exit.tscn" id="6_r25s6"]
 
@@ -85,11 +84,6 @@ pattern_0 = SubResource("TileMapPattern_4wil0")
 pattern_1 = SubResource("TileMapPattern_2h7r3")
 pattern_2 = SubResource("TileMapPattern_v4dye")
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hvdpt"]
-random_pitch = 1.1892071
-streams_count = 1
-stream_0/stream = ExtResource("4_16gb4")
-
 [node name="Playfield" type="Node2D" unique_id=1826274616]
 script = ExtResource("1_llwvk")
 
@@ -125,10 +119,6 @@ position = Vector2(848, 520)
 [node name="MarkerBottomRight" type="Node2D" parent="." unique_id=28620442]
 position = Vector2(1055, 783)
 metadata/_edit_lock_ = true
-
-[node name="IntruderAlert" type="AudioStreamPlayer" parent="." unique_id=908079276]
-stream = SubResource("AudioStreamRandomizer_hvdpt")
-bus = &"Speech"
 
 [node name="Doors" type="Node2D" parent="." unique_id=42153366]
 
