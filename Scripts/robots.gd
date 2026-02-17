@@ -8,6 +8,9 @@ extends Node2D
 var robot: Array[CharacterBody2D]
 var robots_max : int
 var robots_live: int
+var laser_count:int = 0
+var laser_max: int = 0
+
 
 # Notify the game when the robot count changed,
 # And if it was the last robot
@@ -24,9 +27,24 @@ func reset(level_data: Dictionary) -> void:
 	for i in robots_max:
 		robot[i].color = level_data["color"]
 		robot[i].speed = level_data["speed"]
-		robot[i].laser_max = level_data["laser_max"]
 		robot[i].init_robot()
 	robots_live = robots_max
+	laser_max = level_data["laser_max"]
+	laser_count = 0
+
+func add_laser() -> bool:
+	if (laser_count  < laser_max):
+		laser_count += 1
+		return(true)
+	return(false)
+
+
+func remove_laser():
+	if (laser_count > 0):
+		laser_count -=1
+		return(true)
+	print("Attempt to remove laser when count is 0")
+	return(false)
 
 
 func _on_robot_died() -> void:

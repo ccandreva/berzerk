@@ -11,7 +11,7 @@ var player: CharacterBody2D
 @onready var RayCastSouth : RayCast2D = get_node("./CollisionShape2D/RayCastSouth")
 @onready var RayCastEast : RayCast2D = get_node("./CollisionShape2D/RayCastEast")
 @onready var RayCastWest : RayCast2D = get_node("./CollisionShape2D/RayCastWest")
-@onready var parent :Node2D = get_parent()
+@onready var robots :Node2D = get_parent()
 # Robot speed
 @export var speed:int = 20
 @onready var sprite:AnimatedSprite2D = get_node("AnimatedSprite2D")
@@ -19,8 +19,6 @@ var player: CharacterBody2D
 var state:String="Idle"
 var direction:String=""
 var current_sprite: String
-var laser_count:int = 0
-var laser_max: int = 0
 var start_position:Vector2i
 var color:Color = Color(1,1,0)
 
@@ -103,30 +101,19 @@ func _direction_vector_to_word(direction_vector: Vector2, is_8way:bool = false):
 
 func shoot(direction_vector: Vector2, direction_string: String):
 	# We can only shoot once, so skip if we are already shooting
-	if (laser_count  >= laser_max):
-		#print(str("Shot count: ", laser_count, " max: ", laser_max, ", Exiting"))
+	if (!robots.add_laser()):
 		return
-	#print(str("Shot count: ", laser_count, " max: ", laser_max, ", Firing"))
-	laser_count +=1
 	var laser:Area2D = Laser.instantiate()
-	laser.notify_spawner = Callable(self,"remove_laser")
+	laser.notify_spawner = Callable(robots,"remove_laser")
 	laser.color = color
 	laser.speed = 300
 	laser.set_direction(direction_vector, direction_string)
 	# Set initial position to robot position,
 	# plus a bit along the shot path
-	laser.transform = self.global_transform
-	laser.position += (direction_vector * 50)
-	# Add to the parent, so it doesn't move with us.
-	parent.add_child(laser)
+	laser.position = self.position + (direction_vector * 50)
+	# Add to the parent Robots node, so it doesn't move with us.
+	robots.add_child(laser)
 	laser.active()
-
-
-func remove_laser():
-	if (laser_count > 0):
-		laser_count -=1
-	else:
-		print("Attempt to remove laser when count is 0")
 
 
 func kill_robot() -> void:
@@ -156,7 +143,6 @@ func init_robot():
 	state="Idle"
 	set_collision_layer_value(1, true)
 	process_mode=Node.PROCESS_MODE_INHERIT
-	laser_count = 0
 	shoot_timer.start(randf_range(2,4))
 
 func _on_animated_sprite_2d_animation_finished() -> void:
