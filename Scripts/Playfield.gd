@@ -30,12 +30,13 @@ func build(room_x: int, room_y: int, entrance: String = "") -> void:
 func set_start_positions():
 	# Place Robots
 	for i in range(0,num_quadrants):
-		var quadrant:Vector2 = quadrants[i]
-		var top_left = Vector2(quadrant.x, quadrant.y - quadrant_size.y)
+		var top_left:Vector2 = quadrants[i]
 		start_positions[i] = Vector2(top_left.x+randi_range(15,quadrant_size.x),
 			top_left.y+randi_range(15,quadrant_size.y))
-		print(start_positions[i])
 
+func vector_in_quadrant(point: Vector2, i: int):
+	var quad:Rect2 = Rect2(quadrants[i], quadrant_size)
+	return(quad.has_point(point))
 
 func open_current_entrance() -> void:
 	if (current_entrance):
@@ -71,11 +72,12 @@ func get_max() -> Vector2:
 #
 func get_quadrants() -> void:
 	var last_y:int = -1
-	var max_y = get_max().y
+	var max_y = get_max().y - quadrant_size.y
 	var q2:Array[Vector2]
 	for i in range(1,9):
 		var pillar:StaticBody2D = get_node(str("Pillar-", i))
 		var p = pillar.position
+		p.y = p.y - quadrant_size.y
 		if (p.y != last_y):
 			last_y = p.y
 			quadrants.push_back(Vector2(0,p.y))
@@ -85,6 +87,7 @@ func get_quadrants() -> void:
 		if (i>4):
 			q2.push_back(Vector2(p.x,max_y))
 	quadrants.append_array(q2)
-	num_quadrants = quadrants.size() -1
+	num_quadrants = quadrants.size() #-1
 	start_positions.resize(num_quadrants)
-	print(quadrants)
+	print("Num Quadrants: ",num_quadrants)
+	

@@ -132,7 +132,7 @@ func _on_robot_count_changed(is_count_zero:bool) -> void:
 		var bonus = (10 * robots.robots_max)
 		score += bonus
 		label_bonus.text = str("BONUS ", bonus)
-		evil_otto.speed = evil_otto.speed * 2
+		evil_otto.fast()
 	label_score.text = str(score)
 
 

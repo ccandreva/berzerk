@@ -25,12 +25,23 @@ func initialize(new_player: CharacterBody2D) -> void:
 		robot[i].player = player
 
 func reset(level_data: Dictionary) -> void:
-	for i in robots_max:
-		robot[i].color = level_data["color"]
-		robot[i].speed = level_data["speed"]
-		robot[i].start_position = playfield.start_positions[i]
-		robot[i].init_robot()
+	
 	robots_live = robots_max
+	print("Player position: ", player.position)
+	for i in robots_max:
+		#If the player is in this quadrant, disable this robot
+		var robot_in_player_sector:bool = playfield.vector_in_quadrant(player.position, i)
+		var random_kill:bool = (randi_range(1,10) == 7)
+		if (robot_in_player_sector or random_kill):
+#			print(i,": Has Player")
+			robot[i].disable_robot()
+			robots_live -= 1
+		else:
+#			print(i,": No Player")
+			robot[i].start_position = playfield.start_positions[i]
+			robot[i].color = level_data["color"]
+			robot[i].speed = level_data["speed"]
+			robot[i].init_robot()
 	laser_max = level_data["laser_max"]
 	laser_count = 0
 

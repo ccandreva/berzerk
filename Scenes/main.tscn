@@ -86,6 +86,15 @@ position = Vector2(504, 616)
 [node name="Robot-12" parent="GameScreen/Playfield/Robots" unique_id=800937389 instance=ExtResource("3_cuv0i")]
 position = Vector2(504, 616)
 
+[node name="Robot-13" parent="GameScreen/Playfield/Robots" unique_id=1112916060 instance=ExtResource("3_cuv0i")]
+position = Vector2(504, 616)
+
+[node name="Robot-14" parent="GameScreen/Playfield/Robots" unique_id=1877190391 instance=ExtResource("3_cuv0i")]
+position = Vector2(504, 616)
+
+[node name="Robot-15" parent="GameScreen/Playfield/Robots" unique_id=1193227318 instance=ExtResource("3_cuv0i")]
+position = Vector2(504, 616)
+
 [node name="EvilOtto" parent="GameScreen/Playfield" unique_id=1787455862 instance=ExtResource("5_kry3j")]
 position = Vector2(56, 424)
 

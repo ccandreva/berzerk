@@ -45,14 +45,21 @@ func disable_otto():
 #
 func init_otto(level_data: Dictionary, new_start_position: Vector2):
 	start_position = new_start_position
-	speed = level_data["speed"]
+	speed = player.speed * 0.45 #level_data["speed"]
 	# Set Otto's color via a shader
 	sprite.set_instance_shader_parameter("new_color", level_data["color"])
+	sprite.speed_scale = 1
 	process_mode=Node.PROCESS_MODE_INHERIT
 	# Move Otto off screen until he spawns
 	position=Vector2i(-5000,-5000)
 	_set_state("Idle")
 	timer_otto_spawn.start()
+
+
+func fast() -> void:
+	speed = player.speed * 0.9
+	sprite.speed_scale = 2
+
 
 #
 # Spawn otto when timer runs out
