@@ -82,6 +82,8 @@ func _on_menu_play():
 func _show_menu():
 	get_tree().paused = true
 	UI.visible=true
+	# We must grab focus again after the menu has been hidden
+	menu.get_child(0).grab_focus()
 	GameScreen.visible=false
 
 
@@ -130,6 +132,7 @@ func _on_robot_count_changed(is_count_zero:bool) -> void:
 		var bonus = (10 * robots.robots_max)
 		score += bonus
 		label_bonus.text = str("BONUS ", bonus)
+		evil_otto.speed = evil_otto.speed * 2
 	label_score.text = str(score)
 
 

@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://bqagotd410n0n" path="res://Scripts/game_screen.gd" id="2_wsu2k"]
 [ext_resource type="PackedScene" uid="uid://bsgfbhqt6cn4k" path="res://Scenes/robot.tscn" id="3_cuv0i"]
 [ext_resource type="Material" uid="uid://cubi7nn2tqmnq" path="res://Materials/scroller_material.tres" id="4_h1bgf"]
-[ext_resource type="PackedScene" uid="uid://dqc27mfxgppk" path="res://Scripts/evil_otto.tscn" id="5_kry3j"]
+[ext_resource type="PackedScene" uid="uid://dqc27mfxgppk" path="res://Scenes/evil_otto.tscn" id="5_kry3j"]
 [ext_resource type="Theme" uid="uid://cqr4swqrnbn6b" path="res://Assets/Themes/BerzerkTheme.tres" id="6_21xkr"]
 [ext_resource type="Script" uid="uid://2mlmgc722gw" path="res://Scripts/robots.gd" id="6_h1bgf"]
 [ext_resource type="AudioStream" uid="uid://cmutyrhwdpf2f" path="res://Assets/Audio/ChargeIt.wav" id="8_fdnlq"]
@@ -60,6 +60,30 @@ position = Vector2(736, 656)
 position = Vector2(920, 88)
 
 [node name="Robot-04" parent="GameScreen/Playfield/Robots" unique_id=1055450310 instance=ExtResource("3_cuv0i")]
+position = Vector2(504, 616)
+
+[node name="Robot-05" parent="GameScreen/Playfield/Robots" unique_id=950173540 instance=ExtResource("3_cuv0i")]
+position = Vector2(504, 616)
+
+[node name="Robot-06" parent="GameScreen/Playfield/Robots" unique_id=936635122 instance=ExtResource("3_cuv0i")]
+position = Vector2(504, 616)
+
+[node name="Robot-07" parent="GameScreen/Playfield/Robots" unique_id=262130744 instance=ExtResource("3_cuv0i")]
+position = Vector2(504, 616)
+
+[node name="Robot-08" parent="GameScreen/Playfield/Robots" unique_id=422719012 instance=ExtResource("3_cuv0i")]
+position = Vector2(504, 616)
+
+[node name="Robot-09" parent="GameScreen/Playfield/Robots" unique_id=1938340155 instance=ExtResource("3_cuv0i")]
+position = Vector2(504, 616)
+
+[node name="Robot-10" parent="GameScreen/Playfield/Robots" unique_id=501419373 instance=ExtResource("3_cuv0i")]
+position = Vector2(504, 616)
+
+[node name="Robot-11" parent="GameScreen/Playfield/Robots" unique_id=928593979 instance=ExtResource("3_cuv0i")]
+position = Vector2(504, 616)
+
+[node name="Robot-12" parent="GameScreen/Playfield/Robots" unique_id=800937389 instance=ExtResource("3_cuv0i")]
 position = Vector2(504, 616)
 
 [node name="EvilOtto" parent="GameScreen/Playfield" unique_id=1787455862 instance=ExtResource("5_kry3j")]
@@ -173,12 +197,14 @@ script = ExtResource("9_k12tt")
 [node name="Play" type="Button" parent="UI/Menu" unique_id=498182392]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../Exit")
+focus_next = NodePath("../Exit")
 theme = ExtResource("6_21xkr")
 text = "Start Game"
 
 [node name="Exit" type="Button" parent="UI/Menu" unique_id=2001673575]
 layout_mode = 2
 focus_neighbor_top = NodePath("../Play")
+focus_previous = NodePath("../Play")
 theme = ExtResource("6_21xkr")
 text = "Exit"
 

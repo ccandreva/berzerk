@@ -3,8 +3,8 @@ extends Node2D
 #
 # Class to handle robots as a group
 #
-
-#var player: CharacterBody2D
+@onready var playfield:Node2D = $".."
+var player: CharacterBody2D
 var robot: Array[CharacterBody2D]
 var robots_max : int
 var robots_live: int
@@ -16,7 +16,8 @@ var laser_max: int = 0
 # And if it was the last robot
 signal robot_count_changed(is_last_robot:bool)
 
-func initialize(player: CharacterBody2D) -> void:
+func initialize(new_player: CharacterBody2D) -> void:
+	player = new_player
 	robots_max = get_child_count()
 	for i in robots_max:
 		robot.append(get_child(i))
@@ -27,6 +28,7 @@ func reset(level_data: Dictionary) -> void:
 	for i in robots_max:
 		robot[i].color = level_data["color"]
 		robot[i].speed = level_data["speed"]
+		robot[i].start_position = playfield.start_positions[i]
 		robot[i].init_robot()
 	robots_live = robots_max
 	laser_max = level_data["laser_max"]

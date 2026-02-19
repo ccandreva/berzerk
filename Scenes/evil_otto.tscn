@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://dqc27mfxgppk"]
 
 [ext_resource type="Script" uid="uid://b2h5ktwi7nkt1" path="res://Scripts/evil_otto.gd" id="1_7bjh5"]
-[ext_resource type="Texture2D" uid="uid://gw883uru0kgc" path="res://Assets/Art/Otto-bounce.png" id="1_yw4ir"]
 [ext_resource type="Material" uid="uid://786upk8rbxya" path="res://Materials/SetColor.tres" id="2_f5oq8"]
 [ext_resource type="Texture2D" uid="uid://bocwsj8kkahip" path="res://Assets/Art/Otto-full.png" id="2_yw4ir"]
 [ext_resource type="AudioStream" uid="uid://dy7ooc5du87g7" path="res://Assets/Audio/IntruderAlert.wav" id="5_xqfkb"]
@@ -9,44 +8,44 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rdk81"]
 size = Vector2(8, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w7stt"]
-atlas = ExtResource("1_yw4ir")
+[sub_resource type="AtlasTexture" id="AtlasTexture_xqfkb"]
+atlas = ExtResource("2_yw4ir")
 region = Rect2(0, 0, 8, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2vqke"]
-atlas = ExtResource("1_yw4ir")
+[sub_resource type="AtlasTexture" id="AtlasTexture_5wiaa"]
+atlas = ExtResource("2_yw4ir")
 region = Rect2(9, 0, 8, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kblwi"]
-atlas = ExtResource("1_yw4ir")
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5hnu"]
+atlas = ExtResource("2_yw4ir")
 region = Rect2(18, 0, 8, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lwn1f"]
-atlas = ExtResource("1_yw4ir")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycp4k"]
+atlas = ExtResource("2_yw4ir")
 region = Rect2(27, 0, 8, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4gnt0"]
-atlas = ExtResource("1_yw4ir")
+[sub_resource type="AtlasTexture" id="AtlasTexture_24hqi"]
+atlas = ExtResource("2_yw4ir")
 region = Rect2(36, 0, 8, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_co6ml"]
-atlas = ExtResource("1_yw4ir")
+[sub_resource type="AtlasTexture" id="AtlasTexture_gu0rk"]
+atlas = ExtResource("2_yw4ir")
 region = Rect2(45, 0, 8, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rw050"]
-atlas = ExtResource("1_yw4ir")
+[sub_resource type="AtlasTexture" id="AtlasTexture_78odd"]
+atlas = ExtResource("2_yw4ir")
 region = Rect2(36, 0, 8, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_iidk1"]
-atlas = ExtResource("1_yw4ir")
+[sub_resource type="AtlasTexture" id="AtlasTexture_2y4ca"]
+atlas = ExtResource("2_yw4ir")
 region = Rect2(27, 0, 8, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_60775"]
-atlas = ExtResource("1_yw4ir")
+[sub_resource type="AtlasTexture" id="AtlasTexture_gexvc"]
+atlas = ExtResource("2_yw4ir")
 region = Rect2(18, 0, 8, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5dwdj"]
-atlas = ExtResource("1_yw4ir")
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgx8h"]
+atlas = ExtResource("2_yw4ir")
 region = Rect2(9, 0, 8, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6u8hg"]
@@ -81,34 +80,34 @@ region = Rect2(45, 41, 8, 40)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w7stt")
+"texture": SubResource("AtlasTexture_xqfkb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2vqke")
+"texture": SubResource("AtlasTexture_5wiaa")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kblwi")
+"texture": SubResource("AtlasTexture_m5hnu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lwn1f")
+"texture": SubResource("AtlasTexture_ycp4k")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4gnt0")
+"texture": SubResource("AtlasTexture_24hqi")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_co6ml")
+"texture": SubResource("AtlasTexture_gu0rk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rw050")
+"texture": SubResource("AtlasTexture_78odd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_iidk1")
+"texture": SubResource("AtlasTexture_2y4ca")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_60775")
+"texture": SubResource("AtlasTexture_gexvc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5dwdj")
+"texture": SubResource("AtlasTexture_cgx8h")
 }],
 "loop": true,
 "name": &"Bounce",
@@ -167,7 +166,7 @@ shape = SubResource("RectangleShape2D_rdk81")
 material = ExtResource("2_f5oq8")
 position = Vector2(0, -20)
 sprite_frames = SubResource("SpriteFrames_isvp7")
-animation = &"Idle"
+animation = &"Bounce"
 autoplay = "Spawn"
 metadata/_edit_lock_ = true
 
@@ -181,7 +180,6 @@ scale = Vector2(1, 0.7)
 shape = SubResource("CircleShape2D_f5oq8")
 
 [node name="TimerOttoSpawn" type="Timer" parent="." unique_id=1515432853]
-process_mode = 3
 wait_time = 10.0
 one_shot = true
 
