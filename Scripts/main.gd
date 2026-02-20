@@ -100,7 +100,6 @@ func _update_lives() -> void:
 
 func _reset_characters():
 	label_bonus.text = ""
-	print ("Move player to :",exits[last_exit]["player_start"])
 	player.init_player(exits[last_exit]["player_start"])
 	# Remove any shots currently in the air
 	get_tree().call_group("Shots","remove_laser")

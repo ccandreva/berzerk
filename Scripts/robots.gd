@@ -27,7 +27,6 @@ func initialize(new_player: CharacterBody2D) -> void:
 func reset(level_data: Dictionary) -> void:
 	
 	robots_live = robots_max
-	print("Player position: ", player.position)
 	for i in robots_max:
 		#If the player is in this quadrant, disable this robot
 		var robot_in_player_sector:bool = playfield.vector_in_quadrant(player.position, i)
@@ -65,11 +64,5 @@ func _on_robot_died() -> void:
 #		score += 50
 		robots_live -= 1
 		robot_count_changed.emit(robots_live == 0)
-		print(str("Robots_live = ",robots_live))
-#		if (robots_live == 0):
-#			var bonus = (10 * robots_max)
-#			score += bonus
-#			label_bonus.text = str("BONUS ", bonus)
-#		label_score.text = str(score)
 	else:
 		print(str("Robot died when robots_live = ",robots_live))

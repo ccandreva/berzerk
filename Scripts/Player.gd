@@ -40,11 +40,6 @@ func _physics_process(_delta: float) -> void:
 
 func process_input() -> Vector2:
 	var input_vector:Vector2 = Vector2.ZERO
-	# We need to know if we are shooting to pick the right Sprite
-	if (Input.is_action_pressed("Action-A")):
-		state = "Shoot"
-	else:
-		state = "Idle"
 
 	input_vector.x = Input.get_axis("walk_left", "walk_right")
 	input_vector.y = Input.get_axis("walk_up", "walk_down")
@@ -53,7 +48,13 @@ func process_input() -> Vector2:
 	# Idle has no direction in Berzerk
 	if (input_vector == Vector2.ZERO):
 		direction=""
+		state = "Idle"
 	else:
+		# We need to know if we are shooting to pick the right Sprite
+		if (Input.is_action_pressed("Action-A")):
+			state = "Shoot"
+		else:
+			state = "Walk"
 		#print(str('Vector: (', input_vector.x, ",", input_vector.y,")"))
 		# For walking default to Right since we only have 2 animations
 		var direction_h: String = "" if (state == "Shoot") else "Right"
@@ -73,7 +74,6 @@ func process_input() -> Vector2:
 			# Construct direction from vertical & horizontal
 			direction = str(direction_v,direction_h)
 		else:
-			state = "Walk"
 			# We only have animations for left and right, do what the arcade does.
 			direction = direction_h
 	return(input_vector)

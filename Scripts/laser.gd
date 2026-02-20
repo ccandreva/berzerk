@@ -50,7 +50,7 @@ func active() -> void:
 func remove_laser() -> void:
 	# If the callable has been set, call it to remove the laser count
 	# From whatever spawned this shot
-	print("Remove laser")
+#	print("Remove laser")
 	if (state == "Inactive"):
 		return
 	state = "Inactive"
