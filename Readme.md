@@ -4,6 +4,10 @@ They say a good starting point to learn Godot (or any game engine) is to
 write a classic game. I've wanted to do Berzerk for a while, and finally am
 trying my hand at it.
 
+Never played Berzerk ? Play it at the [Internet
+Archive](https://archive.org/details/arcade_berzerk)
+
+
 ## Assets
 The sprites are from The Spriters Resource, with some editing via Image
 Magick to make them more compatible with Godot and BMFont formats:

@@ -1,3 +1,8 @@
+
+Sprite size from Origin:
+X: +/- 20
+Y: +35 / -15
+
 Yellow:
 1:
  1, 2,  , 4, 5

@@ -8,13 +8,14 @@ var player: CharacterBody2D
 var robot: Array[CharacterBody2D]
 var robots_max : int
 var robots_live: int
+var robots_live_start: int
 var laser_count:int = 0
 var laser_max: int = 0
 
 
 # Notify the game when the robot count changed,
 # And if it was the last robot
-signal robot_count_changed(is_last_robot:bool)
+signal robot_count_changed(robot_count_start:int, robot_count:int)
 
 func initialize(new_player: CharacterBody2D) -> void:
 	player = new_player
@@ -30,9 +31,9 @@ func reset(level_data: Dictionary) -> void:
 	for i in robots_max:
 		#If the player is in this quadrant, disable this robot
 		var robot_in_player_sector:bool = playfield.vector_in_quadrant(player.position, i)
-		var random_kill:bool = (randi_range(1,10) == 7)
+		var random_kill:bool = (randi_range(0,10) >= 7)
 		if (robot_in_player_sector or random_kill):
-#			print(i,": Has Player")
+			print(i,": Has Player: ", robot_in_player_sector, " Random Kill: ", random_kill)
 			robot[i].disable_robot()
 			robots_live -= 1
 		else:
@@ -41,6 +42,7 @@ func reset(level_data: Dictionary) -> void:
 			robot[i].color = level_data["color"]
 			robot[i].speed = level_data["speed"]
 			robot[i].init_robot()
+	robots_live_start = robots_live
 	laser_max = level_data["laser_max"]
 	laser_count = 0
 
@@ -63,6 +65,7 @@ func _on_robot_died() -> void:
 	if robots_live>0:
 #		score += 50
 		robots_live -= 1
-		robot_count_changed.emit(robots_live == 0)
+		robot_count_changed.emit(robots_live_start, robots_live)
+		print("Robots live: ", robots_live)
 	else:
 		print(str("Robot died when robots_live = ",robots_live))

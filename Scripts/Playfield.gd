@@ -31,8 +31,8 @@ func set_start_positions():
 	# Place Robots
 	for i in range(0,num_quadrants):
 		var top_left:Vector2 = quadrants[i]
-		start_positions[i] = Vector2(top_left.x+randf_range(15,quadrant_size.x),
-			top_left.y+randf_range(15,quadrant_size.y))
+		start_positions[i] = Vector2(top_left.x+randf_range(20,quadrant_size.x-20),
+			top_left.y+randf_range(15,quadrant_size.y-35))
 
 func vector_in_quadrant(point: Vector2, i: int):
 	var quad:Rect2 = Rect2(quadrants[i], quadrant_size)

@@ -15,6 +15,7 @@ var deg90:float= PI/2
 func _ready() -> void:
 	sfx_node.play()
 	add_to_group("Shots")
+	print(z_index, " : ", z_as_relative)
 
 
 func _physics_process(_delta: float) -> void:

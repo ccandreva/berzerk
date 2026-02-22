@@ -48,7 +48,7 @@ var level:int = 0
 var level_max:int
 var level_data : Array[Dictionary] = [
 	{"color": Color(1,1,0), "speed": 5, "laser_max": 0},
-	{"color": Color(1,0,0), "speed": 20, "laser_max": 1},
+	{"color": Color(1,0,0), "speed": 15, "laser_max": 1},
 	{"color": Color(0,0,1), "speed": 25, "laser_max": 2},
 ]
 
@@ -61,6 +61,7 @@ func _ready() -> void:
 	
 	menu.connect("menu_play", Callable(self,"_on_menu_play"))
 	player.connect("player_died", Callable(self, "_on_player_died"))
+	player.connect("pause_pressed", Callable(self, "_show_menu"))
 	robots.connect("robot_count_changed", Callable(self,"_on_robot_count_changed"))
 	GameScreen.connect("scroll_finished", Callable(self,"_on_gamescreen_scroll_finished"))
 	self.connect("start_scroll", Callable(self,"_start_scroll"))
@@ -68,11 +69,13 @@ func _ready() -> void:
 	level_max = level_data.size() - 1
 	robots.initialize(player)
 	evil_otto.player = player
+	# Set game state to paused for main menu
 	get_tree().paused = true
 
 
 func _on_menu_play():
 	lives = 3
+	level = 0
 	GameScreen.visible=true
 	UI.visible=false
 	get_tree().paused = false
@@ -123,15 +126,20 @@ func _on_player_died() -> void:
 		_show_menu()
 
 
-func _on_robot_count_changed(is_count_zero:bool) -> void:
+func _on_robot_count_changed(robots_count_start: int, robots_count: int) -> void:
 	# 50 points per robot
 	score += 50
 	# If all robots are dead, add a bonus
-	if (is_count_zero == true):
-		var bonus = (10 * robots.robots_max)
+	if (robots_count == 0):
+		#Compute bonus
+		var bonus = (10 * robots_count_start)
+		# Add Bonus to score
 		score += bonus
+		# Set message with bonus ammount
 		label_bonus.text = str("BONUS ", bonus)
+		# Speed up Evil Otto
 		evil_otto.fast()
+	# Update the score display
 	label_score.text = str(score)
 
 

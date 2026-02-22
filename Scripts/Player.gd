@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
 signal player_died
+signal pause_pressed
+
 
 @onready var sprite:AnimatedSprite2D = get_node("AnimatedSprite2D")
 @onready var death_timer: Timer = get_node("DeathTimer")
@@ -21,6 +23,11 @@ var state:String="Idle"
 
 func _physics_process(_delta: float) -> void:
 	var input_vector:Vector2 = Vector2.ZERO
+	#Handle pause key
+	if (Input.is_action_just_pressed("Pause")):
+		pause_pressed.emit.call_deferred()
+
+
 	# If we are dying, we can't do anything else.
 	if (state != "Death"):
 		input_vector = process_input()
@@ -50,6 +57,7 @@ func process_input() -> Vector2:
 		direction=""
 		state = "Idle"
 	else:
+		
 		# We need to know if we are shooting to pick the right Sprite
 		if (Input.is_action_pressed("Action-A")):
 			state = "Shoot"

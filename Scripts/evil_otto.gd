@@ -37,19 +37,19 @@ func _physics_process(_delta: float) -> void:
 func disable_otto():
 	if (state == "Bounce"):
 		sprite.frame_changed.disconnect(Callable(self, "_on_frame_changed"))
-	process_mode=Node.PROCESS_MODE_DISABLED
+	state="Idle"
 	position=Vector2i(-5000,-5000)
 
 #
 # Initialize Otto for each level with data from main
 #
 func init_otto(level_data: Dictionary, new_start_position: Vector2):
+	disable_otto()
 	start_position = new_start_position
-	speed = player.speed * 0.45 #level_data["speed"]
+	speed = player.speed * 0.33 #level_data["speed"]
 	# Set Otto's color via a shader
 	sprite.set_instance_shader_parameter("new_color", level_data["color"])
 	sprite.speed_scale = 1
-	process_mode=Node.PROCESS_MODE_INHERIT
 	# Move Otto off screen until he spawns
 	position=Vector2i(-5000,-5000)
 	_set_state("Idle")
@@ -57,7 +57,7 @@ func init_otto(level_data: Dictionary, new_start_position: Vector2):
 
 
 func fast() -> void:
-	speed = player.speed * 0.9
+	speed = player.speed * 0.7
 	sprite.speed_scale = 2
 
 
@@ -68,7 +68,6 @@ func spawn_otto():
 	position=start_position
 	collision.position.y = collision_y[0]
 	collision.scale.y = collision_scale_y[0]
-	process_mode=Node.PROCESS_MODE_INHERIT
 	sprite.animation_finished.connect(Callable(self,"_on_animation_finished"))
 	_set_state("Spawn")
 	$IntruderAlert.play()
