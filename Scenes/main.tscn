@@ -33,6 +33,9 @@ stream_3/stream = ExtResource("11_k12tt")
 stream_4/stream = ExtResource("12_h1bgf")
 stream_5/stream = ExtResource("13_b3802")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1bgf"]
+bg_color = Color(0.5137255, 0.35686275, 0.7372549, 0.57254905)
+
 [node name="Main" type="Node2D" unique_id=1843548130]
 script = ExtResource("1_jjvhh")
 
@@ -223,5 +226,52 @@ one_shot = true
 wait_time = 0.05
 one_shot = true
 
+[node name="PauseScreen" type="CanvasLayer" parent="." unique_id=668546877]
+visible = false
+
+[node name="PauseContainer" type="PanelContainer" parent="PauseScreen" unique_id=1702551095]
+process_mode = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h1bgf")
+
+[node name="Header" type="VBoxContainer" parent="PauseScreen/PauseContainer" unique_id=396592405]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="PauseScreen/PauseContainer/Header" unique_id=678143529]
+layout_mode = 2
+theme = ExtResource("6_21xkr")
+
+[node name="Label" type="Label" parent="PauseScreen/PauseContainer/Header" unique_id=453024096]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+theme = ExtResource("6_21xkr")
+text = "Paused"
+
+[node name="HSeparator2" type="HSeparator" parent="PauseScreen/PauseContainer/Header" unique_id=1813399265]
+layout_mode = 2
+theme = ExtResource("6_21xkr")
+
+[node name="Menu" type="VBoxContainer" parent="PauseScreen/PauseContainer" unique_id=584814346]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Resume" type="Button" parent="PauseScreen/PauseContainer/Menu" unique_id=368624580]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("6_21xkr")
+text = "Resume"
+
 [connection signal="pressed" from="UI/Menu/Play" to="UI/Menu" method="_on_play_pressed"]
 [connection signal="pressed" from="UI/Menu/Exit" to="UI/Menu" method="_on_exit_pressed"]
+[connection signal="pressed" from="PauseScreen/PauseContainer/Menu/Resume" to="." method="_on_resume_pressed"]

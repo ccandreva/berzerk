@@ -254,6 +254,7 @@ stream = SubResource("AudioStreamRandomizer_dwnub")
 bus = &"Sounds"
 
 [node name="Label" type="Label" parent="." unique_id=1111268935]
+visible = false
 offset_left = -21.0
 offset_top = -44.0
 offset_right = 19.0

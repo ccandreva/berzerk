@@ -4,6 +4,8 @@ signal start_scroll(exit_name:String)
 
 @onready var GameScreen:Node2D = get_node("GameScreen")
 @onready var UI:CanvasLayer = get_node("UI")
+@onready var PauseScreen:CanvasLayer = get_node("PauseScreen")
+@onready var PauseMenu:VBoxContainer = get_node("PauseScreen/PauseContainer/Menu")
 @onready var playfield:Node2D = get_node("GameScreen/Playfield")
 @onready var player:CharacterBody2D = get_node("GameScreen/Playfield/Player")
 @onready var robots: Node2D = get_node("GameScreen/Playfield/Robots")
@@ -47,9 +49,25 @@ var exits : Dictionary[String, Dictionary] = {
 var level:int = 0
 var level_max:int
 var level_data : Array[Dictionary] = [
-	{"color": Color(1,1,0), "speed": 5, "laser_max": 0},
+	{"color": Color(0.675, 0.675, 0.0, 1.0), "speed": 5, "laser_max": 0},
 	{"color": Color(1,0,0), "speed": 15, "laser_max": 1},
-	{"color": Color(0,0,1), "speed": 25, "laser_max": 2},
+	{"color": Color(1,0,0), "speed": 15, "laser_max": 1},
+	{"color": Color(0.0, 0.444, 0.444, 1.0), "speed": 25, "laser_max": 2},
+	{"color": Color(0.0, 0.444, 0.444, 1.0), "speed": 25, "laser_max": 2},
+	{"color": Color(0,1,0), "speed": 28, "laser_max": 3},
+	{"color": Color(0,1,0), "speed": 28, "laser_max": 3},
+	{"color": Color(0,1,0), "speed": 28, "laser_max": 3},
+	{"color": Color(0.566, 0.0, 0.566, 1.0), "speed": 30, "laser_max": 4},
+	{"color": Color(0.566, 0.0, 0.566, 1.0), "speed": 30, "laser_max": 4},
+	{"color": Color(1,1,0), "speed": 32, "laser_max": 5},
+	{"color": Color(1,1,0), "speed": 32, "laser_max": 5},
+	{"color": Color(1,1,0), "speed": 32, "laser_max": 5},
+	{"color": Color(1,1,0), "speed": 32, "laser_max": 5},
+	{"color": Color(1.0, 1.0, 1.0, 1.0), "speed": 34, "laser_max": 6},
+	{"color": Color(1.0, 1.0, 1.0, 1.0), "speed": 34, "laser_max": 6},
+	{"color": Color(1.0, 1.0, 1.0, 1.0), "speed": 34, "laser_max": 6},
+	{"color": Color(1.0, 1.0, 1.0, 1.0), "speed": 34, "laser_max": 6},
+	{"color": Color(0.0, 0.847, 0.847, 1.0), "speed": 36, "laser_max": 7},
 ]
 
 # Called when the node enters the scene tree for the first time.
@@ -61,11 +79,11 @@ func _ready() -> void:
 	
 	menu.connect("menu_play", Callable(self,"_on_menu_play"))
 	player.connect("player_died", Callable(self, "_on_player_died"))
-	player.connect("pause_pressed", Callable(self, "_show_menu"))
+	player.connect("pause_pressed", Callable(self, "_show_pause"))
 	robots.connect("robot_count_changed", Callable(self,"_on_robot_count_changed"))
 	GameScreen.connect("scroll_finished", Callable(self,"_on_gamescreen_scroll_finished"))
 	self.connect("start_scroll", Callable(self,"_start_scroll"))
-	# Set level_max from array size. 
+		# Set level_max from array size. 
 	level_max = level_data.size() - 1
 	robots.initialize(player)
 	evil_otto.player = player
@@ -89,6 +107,16 @@ func _show_menu():
 	menu.get_child(0).grab_focus()
 	GameScreen.visible=false
 
+func _show_pause() -> void:
+	get_tree().paused = true
+	PauseScreen.visible=true
+	# We must grab focus again after the menu has been hidden
+	PauseMenu.get_child(0).grab_focus()
+
+func _on_resume_pressed() -> void:
+	get_tree().paused = false
+	PauseScreen.visible=false
+	
 
 func _start_level(entrance:String = "") -> void:
 	playfield.build(room_x, room_y, entrance)
@@ -111,10 +139,10 @@ func _reset_characters():
 
 
 func _next_level() -> void:
-	level +=1
-	if (level > level_max):
-		level = 0
-
+	# Increase level until we hit the max.
+	if (level <= level_max):
+		level +=1
+		
 
 func _on_player_died() -> void:
 	lives -=1
