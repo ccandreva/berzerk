@@ -7,6 +7,8 @@ trying my hand at it.
 Never played Berzerk ? Play it at the [Internet
 Archive](https://archive.org/details/arcade_berzerk)
 
+![Screenshot of Berzerk gameplay.](./Doc/Berzerk-screenshot-01.png "Berzerk in Action")
+
 
 ## Assets
 The sprites are from The Spriters Resource, with some editing via Image
@@ -16,6 +18,8 @@ https://www.spriters-resource.com/arcade/berzerk/
 Speech is generated via espeak-ng and the "gmw/en-US" voice. I'm using sound
 effects from an Ovani pack I bought some time ago in a Humble Bundle, so
 those are not included in the Git repo. 
+
+![The Berzerk main menu.](./Doc/Berzerk-screenshot-02.png "The main menu.")
 
 ## Maze Generation
 Maze generation had been documented on the Robotron 2084 site. It's
